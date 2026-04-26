@@ -3,465 +3,624 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Cronograma SGP — 6 meses</title>
+<title>SGP — Cronograma de Desarrollo</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:system-ui,sans-serif;background:#f0f2f5;padding:32px 20px;min-height:100vh;}
-.container{max-width:860px;margin:0 auto;}
-.page-title{font-size:22px;font-weight:500;color:#111;margin-bottom:4px;}
-.page-sub{font-size:13px;color:#6b7280;margin-bottom:24px;}
-.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
-.kpi{background:#fff;border:0.5px solid #e5e7eb;border-radius:8px;padding:12px 14px;}
-.kpi-val{font-size:22px;font-weight:500;color:#111;}
-.kpi-lbl{font-size:11px;color:#6b7280;margin-top:2px;}
-.prog-row{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
-.prog-lbl{font-size:12px;color:#6b7280;white-space:nowrap;}
-.prog-track{flex:1;height:8px;background:#e5e7eb;border-radius:4px;}
-.prog-fill{height:8px;border-radius:4px;background:#1D9E75;transition:width 0.4s;}
-.prog-pct{font-size:13px;font-weight:500;color:#111;min-width:36px;text-align:right;}
-.fase-legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px;}
-.leg-item{display:flex;align-items:center;gap:6px;font-size:12px;color:#6b7280;}
-.leg-dot{width:9px;height:9px;border-radius:50%;}
-.fase-wrap{margin-bottom:10px;border:0.5px solid #e5e7eb;border-radius:12px;overflow:hidden;background:#fff;}
-.fase-head{display:grid;grid-template-columns:200px 1fr auto;align-items:center;gap:0;padding:14px 18px;cursor:pointer;user-select:none;background:#fff;}
-.fase-head:hover{background:#f9fafb;}
-.fh-left{display:flex;align-items:center;gap:10px;}
-.fase-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;}
-.fase-name{font-size:13px;font-weight:500;color:#111;}
-.fase-weeks{font-size:11px;color:#6b7280;margin-top:1px;}
-.fh-bar-wrap{padding:0 20px;}
-.fh-bar-track{height:6px;background:#f0f2f5;border-radius:4px;}
-.fh-bar-fill{height:6px;border-radius:4px;transition:width 0.3s;}
-.fh-right{display:flex;align-items:center;gap:10px;white-space:nowrap;}
-.fh-pct{font-size:11px;color:#6b7280;}
-.arrow{font-size:10px;color:#9ca3af;transition:transform 0.2s;display:inline-block;}
-.arrow.open{transform:rotate(90deg);}
-.semanas-grid{display:none;padding:0 18px 16px;border-top:0.5px solid #e5e7eb;}
-.semanas-grid.open{display:block;}
-.mes-label{font-size:10px;font-weight:500;color:#9ca3af;text-transform:uppercase;letter-spacing:0.5px;padding:12px 0 8px;}
-.semana-row{display:grid;grid-template-columns:48px 1fr auto;gap:12px;align-items:start;padding:10px 0;border-bottom:0.5px solid #f0f2f5;}
-.semana-row:last-child{border-bottom:none;}
-.semana-row.done{opacity:0.5;}
-.s-left{display:flex;justify-content:center;padding-top:2px;}
-.s-circle{width:30px;height:30px;border-radius:50%;border:1.5px solid #d1d5db;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#6b7280;cursor:pointer;transition:all 0.15s;background:#fff;flex-shrink:0;}
-.s-circle:hover{border-color:#9ca3af;}
-.s-circle.done{color:#fff;border-color:transparent;}
-.s-body{padding-top:2px;}
-.s-title{font-size:13px;font-weight:500;color:#111;margin-bottom:4px;}
-.s-desc{font-size:11px;color:#6b7280;line-height:1.6;}
-.s-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;}
-.tag{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;}
-.entrega-badge{display:inline-flex;align-items:center;padding:4px 10px;border-radius:8px;font-size:10px;font-weight:500;white-space:nowrap;margin-top:2px;}
-@media(max-width:600px){
-  .kpi-row{grid-template-columns:repeat(2,1fr);}
-  .fase-head{grid-template-columns:1fr auto;}
-  .fh-bar-wrap{display:none;}
-  .semana-row{grid-template-columns:40px 1fr;}
-  .entrega-badge{display:none;}
+:root{
+  --bg:#F7F6F2;
+  --card:#FFFFFF;
+  --border:#E8E6DF;
+  --border2:#D4D1C8;
+  --text:#1A1916;
+  --muted:#6B6860;
+  --hint:#9C9A92;
+  --c1:#0F6E56;--c1l:#E1F5EE;--c1t:#085041;
+  --c2:#185FA5;--c2l:#E6F1FB;--c2t:#0C447C;
+  --c3:#854F0B;--c3l:#FAEEDA;--c3t:#633806;
+  --c4:#534AB7;--c4l:#EEEDFE;--c4t:#3C3489;
+  --c5:#3B6D11;--c5l:#EAF3DE;--c5t:#27500A;
+  --c6:#A32D2D;--c6l:#FCEBEB;--c6t:#791F1F;
+  --radius:10px;
+  --radius-sm:6px;
 }
-@media print{
-  body{background:#fff;padding:16px;}
-  .semanas-grid{display:block!important;}
-  .arrow{display:none;}
-  .fase-head{cursor:default;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'DM Sans',system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  padding:0;
+}
+
+/* HERO */
+.hero{
+  background:var(--text);
+  color:#fff;
+  padding:48px 40px 40px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 60px,
+    rgba(255,255,255,0.02) 60px,
+    rgba(255,255,255,0.02) 61px
+  ),repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 60px,
+    rgba(255,255,255,0.02) 60px,
+    rgba(255,255,255,0.02) 61px
+  );
+}
+.hero-inner{max-width:900px;margin:0 auto;position:relative;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,0.08);
+  border:0.5px solid rgba(255,255,255,0.15);
+  border-radius:20px;padding:4px 12px;
+  font-size:11px;font-weight:500;color:rgba(255,255,255,0.6);
+  margin-bottom:20px;letter-spacing:.5px;text-transform:uppercase;
+}
+.hero-dot{width:6px;height:6px;border-radius:50%;background:#4ADE80;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.hero h1{font-size:36px;font-weight:600;letter-spacing:-1px;margin-bottom:8px;line-height:1.1;}
+.hero h1 span{color:rgba(255,255,255,0.35);}
+.hero-sub{font-size:14px;color:rgba(255,255,255,0.5);max-width:500px;line-height:1.6;}
+.hero-meta{
+  display:flex;gap:32px;margin-top:32px;
+  padding-top:24px;border-top:0.5px solid rgba(255,255,255,0.1);
+}
+.hero-stat{}
+.hero-stat-val{font-size:28px;font-weight:600;color:#fff;}
+.hero-stat-lbl{font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px;text-transform:uppercase;letter-spacing:.5px;}
+.stack-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:24px;}
+.stack-pill{
+  background:rgba(255,255,255,0.07);
+  border:0.5px solid rgba(255,255,255,0.12);
+  border-radius:20px;padding:4px 12px;
+  font-size:11px;font-weight:500;color:rgba(255,255,255,0.55);
+  font-family:'DM Mono',monospace;
+}
+
+/* MAIN CONTENT */
+.main{max-width:900px;margin:0 auto;padding:40px 24px 80px;}
+
+/* FASE HEADERS */
+.fase-label{
+  display:flex;align-items:center;gap:12px;
+  margin:40px 0 14px;
+  padding-bottom:12px;
+  border-bottom:0.5px solid var(--border2);
+}
+.fase-label:first-child{margin-top:0;}
+.fase-dot{width:10px;height:10px;border-radius:50%;}
+.fase-name{font-size:13px;font-weight:600;color:var(--text);text-transform:uppercase;letter-spacing:.5px;}
+.fase-range{font-size:12px;color:var(--hint);margin-left:auto;}
+.fase-tag{font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.4px;}
+
+/* SEMANAS GRID */
+.semanas{display:flex;flex-direction:column;gap:8px;}
+.semana{
+  background:var(--card);
+  border:0.5px solid var(--border);
+  border-radius:var(--radius);
+  padding:16px 20px;
+  display:grid;
+  grid-template-columns:52px 1fr auto;
+  gap:16px;
+  align-items:start;
+  transition:border-color .2s;
+}
+.semana:hover{border-color:var(--border2);}
+.s-week{
+  display:flex;flex-direction:column;align-items:center;
+  padding-top:2px;
+}
+.s-week-num{
+  font-size:22px;font-weight:600;color:var(--text);line-height:1;
+}
+.s-week-lbl{font-size:9px;color:var(--hint);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;}
+.s-body{}
+.s-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px;}
+.s-desc{font-size:11px;color:var(--muted);line-height:1.65;margin-bottom:6px;}
+.s-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.tag{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;font-family:'DM Mono',monospace;}
+.s-badge{
+  padding:4px 10px;border-radius:var(--radius-sm);
+  font-size:10px;font-weight:600;white-space:nowrap;
+  align-self:start;margin-top:2px;
+  text-transform:uppercase;letter-spacing:.3px;
+}
+
+/* ENTREGA FINAL */
+.entrega-banner{
+  background:var(--text);
+  border-radius:var(--radius);
+  padding:20px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:40px;
+}
+.eb-left{}
+.eb-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:3px;}
+.eb-sub{font-size:12px;color:rgba(255,255,255,0.4);}
+.eb-badge{
+  background:rgba(255,255,255,0.1);
+  border:0.5px solid rgba(255,255,255,0.15);
+  border-radius:20px;padding:6px 16px;
+  font-size:11px;font-weight:600;color:#fff;
+  text-transform:uppercase;letter-spacing:.5px;
+}
+
+/* FOOTER */
+.footer{
+  border-top:0.5px solid var(--border2);
+  padding:20px 24px;
+  text-align:center;
+  font-size:11px;color:var(--hint);
+}
+.footer span{color:var(--text);font-weight:500;}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .hero{padding:32px 20px 28px;}
+  .hero h1{font-size:26px;}
+  .hero-meta{gap:20px;}
+  .main{padding:28px 16px 60px;}
+  .semana{grid-template-columns:40px 1fr;gap:12px;}
+  .s-badge{display:none;}
 }
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="page-title">Sistema de Gestión de Producción</div>
-  <div class="page-sub">Plan de desarrollo · 6 meses · 24 semanas · 5 fases</div>
 
-  <div class="fase-legend">
-    <div class="leg-item"><div class="leg-dot" style="background:#185fa5"></div>Fase 1 — Base</div>
-    <div class="leg-item"><div class="leg-dot" style="background:#0F6E56"></div>Fase 2 — Bodega</div>
-    <div class="leg-item"><div class="leg-dot" style="background:#854f0b"></div>Fase 3 — Pedidos</div>
-    <div class="leg-item"><div class="leg-dot" style="background:#534AB7"></div>Fase 4 — Producción</div>
-    <div class="leg-item"><div class="leg-dot" style="background:#3B6D11"></div>Fase 5 — Cierre</div>
-  </div>
-
-  <div class="kpi-row">
-    <div class="kpi"><div class="kpi-val">24</div><div class="kpi-lbl">Semanas totales</div></div>
-    <div class="kpi"><div class="kpi-val">5</div><div class="kpi-lbl">Fases</div></div>
-    <div class="kpi"><div class="kpi-val" id="kpi-done">0</div><div class="kpi-lbl">Semanas completadas</div></div>
-    <div class="kpi"><div class="kpi-val" id="kpi-rest">24</div><div class="kpi-lbl">Semanas restantes</div></div>
-  </div>
-  <div class="prog-row">
-    <span class="prog-lbl">Progreso general</span>
-    <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
-    <span class="prog-pct" id="prog-pct">0%</span>
-  </div>
-
-  <!-- FASE 1 -->
-  <div class="fase-wrap">
-    <div class="fase-head" onclick="toggleFase(1)">
-      <div class="fh-left">
-        <div class="fase-dot" style="background:#185fa5"></div>
-        <div>
-          <div class="fase-name">Fase 1 — Base del sistema</div>
-          <div class="fase-weeks">Semanas 1–5 · Mes 1</div>
-        </div>
-      </div>
-      <div class="fh-bar-wrap">
-        <div class="fh-bar-track"><div class="fh-bar-fill" id="fb1" style="width:0%;background:#185fa5"></div></div>
-      </div>
-      <div class="fh-right">
-        <span class="fh-pct" id="fp1">0 / 5</span>
-        <span class="arrow" id="arr1">▶</span>
-      </div>
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><div class="hero-dot"></div>En desarrollo activo</div>
+    <h1>Sistema de Gestión<br><span>de Producción</span></h1>
+    <p class="hero-sub">Plan de desarrollo completo para la imprenta ProPrint — control de inventario, producción, calidad AQL y cola inteligente de pedidos.</p>
+    <div class="stack-pills">
+      <span class="stack-pill">Python · Flask</span>
+      <span class="stack-pill">MySQL</span>
+      <span class="stack-pill">HTML · CSS · JS</span>
+      <span class="stack-pill">Ubuntu Server</span>
+      <span class="stack-pill">Nginx · Gunicorn</span>
+      <span class="stack-pill">ISO 2859-1 AQL</span>
     </div>
-    <div class="semanas-grid" id="sg1">
-      <div class="mes-label">Mes 1</div>
-      <div class="semana-row" id="s1">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s1','#185fa5')" id="sc1">1</div></div>
-        <div class="s-body">
-          <div class="s-title">Entorno de desarrollo</div>
-          <div class="s-desc">Instalar servidor local (XAMPP/Laragon) · Configurar PHP y MySQL · Crear repositorio Git · Estructura de carpetas del proyecto</div>
-          <div class="s-tags"><span class="tag" style="background:#e6f1fb;color:#0c447c">Setup</span><span class="tag" style="background:#e6f1fb;color:#0c447c">Git</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#e6f1fb;color:#0c447c">Entorno listo</span></div>
-      </div>
-      <div class="semana-row" id="s2">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s2','#185fa5')" id="sc2">2</div></div>
-        <div class="s-body">
-          <div class="s-title">Base de datos — Diseño</div>
-          <div class="s-desc">Crear tablas: usuarios, clientes, materiales, pedidos, tareas · Relaciones y claves foráneas · Datos de prueba iniciales</div>
-          <div class="s-tags"><span class="tag" style="background:#e6f1fb;color:#0c447c">MySQL</span><span class="tag" style="background:#e6f1fb;color:#0c447c">Schema</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#e6f1fb;color:#0c447c">BD funcional</span></div>
-      </div>
-      <div class="semana-row" id="s3">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s3','#185fa5')" id="sc3">3</div></div>
-        <div class="s-body">
-          <div class="s-title">Sistema de login y roles</div>
-          <div class="s-desc">Formulario de ingreso · Sesiones PHP · Roles: Administrador, Empleado · Protección de rutas según rol</div>
-          <div class="s-tags"><span class="tag" style="background:#e6f1fb;color:#0c447c">Auth</span><span class="tag" style="background:#e6f1fb;color:#0c447c">Roles</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#e6f1fb;color:#0c447c">Login listo</span></div>
-      </div>
-      <div class="semana-row" id="s4">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s4','#185fa5')" id="sc4">4</div></div>
-        <div class="s-body">
-          <div class="s-title">Layout y diseño base</div>
-          <div class="s-desc">Sidebar de navegación · Estructura de páginas internas · Estilos globales CSS · Componentes reutilizables (tablas, botones, badges)</div>
-          <div class="s-tags"><span class="tag" style="background:#e6f1fb;color:#0c447c">UI</span><span class="tag" style="background:#e6f1fb;color:#0c447c">CSS</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#e6f1fb;color:#0c447c">UI base</span></div>
-      </div>
-      <div class="semana-row" id="s5">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s5','#185fa5')" id="sc5">5</div></div>
-        <div class="s-body">
-          <div class="s-title">Gestión de usuarios</div>
-          <div class="s-desc">Crear, editar y desactivar usuarios · Asignar roles · Panel de administración de cuentas · Pruebas de acceso por rol</div>
-          <div class="s-tags"><span class="tag" style="background:#e6f1fb;color:#0c447c">Usuarios</span><span class="tag" style="background:#e6f1fb;color:#0c447c">Admin</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#185fa5;color:#fff">✓ Entrega F1</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FASE 2 -->
-  <div class="fase-wrap">
-    <div class="fase-head" onclick="toggleFase(2)">
-      <div class="fh-left">
-        <div class="fase-dot" style="background:#0F6E56"></div>
-        <div>
-          <div class="fase-name">Fase 2 — Bodega e inventario</div>
-          <div class="fase-weeks">Semanas 6–10 · Mes 2</div>
-        </div>
-      </div>
-      <div class="fh-bar-wrap">
-        <div class="fh-bar-track"><div class="fh-bar-fill" id="fb2" style="width:0%;background:#0F6E56"></div></div>
-      </div>
-      <div class="fh-right">
-        <span class="fh-pct" id="fp2">0 / 5</span>
-        <span class="arrow" id="arr2">▶</span>
-      </div>
-    </div>
-    <div class="semanas-grid" id="sg2">
-      <div class="mes-label">Mes 2</div>
-      <div class="semana-row" id="s6">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s6','#0F6E56')" id="sc6">6</div></div>
-        <div class="s-body">
-          <div class="s-title">Registro de materiales</div>
-          <div class="s-desc">Formulario para agregar materiales · Campos: nombre, unidad, stock mínimo · Listado con búsqueda y filtros</div>
-          <div class="s-tags"><span class="tag" style="background:#e1f5ee;color:#085041">CRUD</span><span class="tag" style="background:#e1f5ee;color:#085041">Materiales</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#e1f5ee;color:#085041">Registro</span></div>
-      </div>
-      <div class="semana-row" id="s7">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s7','#0F6E56')" id="sc7">7</div></div>
-        <div class="s-body">
-          <div class="s-title">Entradas de bodega</div>
-          <div class="s-desc">Formulario de recepción de materiales · Registro de fecha, cantidad y proveedor · Actualización automática de stock</div>
-          <div class="s-tags"><span class="tag" style="background:#e1f5ee;color:#085041">Entradas</span><span class="tag" style="background:#e1f5ee;color:#085041">Stock</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#e1f5ee;color:#085041">Entradas</span></div>
-      </div>
-      <div class="semana-row" id="s8">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s8','#0F6E56')" id="sc8">8</div></div>
-        <div class="s-body">
-          <div class="s-title">Salidas y consumo</div>
-          <div class="s-desc">Registrar salidas por producción · Descuento automático del stock · Historial completo de movimientos por material</div>
-          <div class="s-tags"><span class="tag" style="background:#e1f5ee;color:#085041">Salidas</span><span class="tag" style="background:#e1f5ee;color:#085041">Historial</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#e1f5ee;color:#085041">Movimientos</span></div>
-      </div>
-      <div class="semana-row" id="s9">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s9','#0F6E56')" id="sc9">9</div></div>
-        <div class="s-body">
-          <div class="s-title">Alertas de stock bajo</div>
-          <div class="s-desc">Detectar materiales bajo el mínimo · Panel de alertas visual · Notificación al administrador al ingresar</div>
-          <div class="s-tags"><span class="tag" style="background:#e1f5ee;color:#085041">Alertas</span><span class="tag" style="background:#e1f5ee;color:#085041">Dashboard</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#e1f5ee;color:#085041">Alertas</span></div>
-      </div>
-      <div class="semana-row" id="s10">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s10','#0F6E56')" id="sc10">10</div></div>
-        <div class="s-body">
-          <div class="s-title">Proveedores y órdenes de compra</div>
-          <div class="s-desc">Registro de proveedores · Generar orden de compra básica · Asociar proveedor a material · Pruebas del módulo completo</div>
-          <div class="s-tags"><span class="tag" style="background:#e1f5ee;color:#085041">Proveedores</span><span class="tag" style="background:#e1f5ee;color:#085041">Compras</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#0F6E56;color:#fff">✓ Entrega F2</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FASE 3 -->
-  <div class="fase-wrap">
-    <div class="fase-head" onclick="toggleFase(3)">
-      <div class="fh-left">
-        <div class="fase-dot" style="background:#854f0b"></div>
-        <div>
-          <div class="fase-name">Fase 3 — Clientes y pedidos</div>
-          <div class="fase-weeks">Semanas 11–15 · Mes 3</div>
-        </div>
-      </div>
-      <div class="fh-bar-wrap">
-        <div class="fh-bar-track"><div class="fh-bar-fill" id="fb3" style="width:0%;background:#854f0b"></div></div>
-      </div>
-      <div class="fh-right">
-        <span class="fh-pct" id="fp3">0 / 5</span>
-        <span class="arrow" id="arr3">▶</span>
-      </div>
-    </div>
-    <div class="semanas-grid" id="sg3">
-      <div class="mes-label">Mes 3</div>
-      <div class="semana-row" id="s11">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s11','#854f0b')" id="sc11">11</div></div>
-        <div class="s-body">
-          <div class="s-title">Gestión de clientes</div>
-          <div class="s-desc">Registro de clientes · Campos: nombre, RUC, contacto, dirección · Listado con búsqueda · Historial de pedidos por cliente</div>
-          <div class="s-tags"><span class="tag" style="background:#faeeda;color:#633806">Clientes</span><span class="tag" style="background:#faeeda;color:#633806">CRUD</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#faeeda;color:#633806">Clientes</span></div>
-      </div>
-      <div class="semana-row" id="s12">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s12','#854f0b')" id="sc12">12</div></div>
-        <div class="s-body">
-          <div class="s-title">Formulario de pedido</div>
-          <div class="s-desc">Crear pedido: cliente, producto, cantidad, fecha de entrega · Guardar en base de datos · Asignar estado inicial</div>
-          <div class="s-tags"><span class="tag" style="background:#faeeda;color:#633806">Pedidos</span><span class="tag" style="background:#faeeda;color:#633806">Form</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#faeeda;color:#633806">Pedidos</span></div>
-      </div>
-      <div class="semana-row" id="s13">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s13','#854f0b')" id="sc13">13</div></div>
-        <div class="s-body">
-          <div class="s-title">Verificación de material</div>
-          <div class="s-desc">Al crear pedido: verificar stock disponible · Si hay material → continuar · Si no hay → bloquear y marcar como "Sin material"</div>
-          <div class="s-tags"><span class="tag" style="background:#faeeda;color:#633806">Lógica</span><span class="tag" style="background:#faeeda;color:#633806">Stock</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#faeeda;color:#633806">Verificación</span></div>
-      </div>
-      <div class="semana-row" id="s14">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s14','#854f0b')" id="sc14">14</div></div>
-        <div class="s-body">
-          <div class="s-title">Cálculo de costo y tiempo</div>
-          <div class="s-desc">Costo estimado según materiales y cantidad · Tiempo estimado de producción · Mostrar resumen antes de confirmar</div>
-          <div class="s-tags"><span class="tag" style="background:#faeeda;color:#633806">Costo</span><span class="tag" style="background:#faeeda;color:#633806">Tiempo</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#faeeda;color:#633806">Cálculos</span></div>
-      </div>
-      <div class="semana-row" id="s15">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s15','#854f0b')" id="sc15">15</div></div>
-        <div class="s-body">
-          <div class="s-title">Estados y seguimiento de pedido</div>
-          <div class="s-desc">Estados: Pendiente, En proceso, Bloqueado, Completado · Cambio manual y automático · Vista general de todos los pedidos activos</div>
-          <div class="s-tags"><span class="tag" style="background:#faeeda;color:#633806">Estados</span><span class="tag" style="background:#faeeda;color:#633806">Tracking</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#854f0b;color:#fff">✓ Entrega F3</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FASE 4 -->
-  <div class="fase-wrap">
-    <div class="fase-head" onclick="toggleFase(4)">
-      <div class="fh-left">
-        <div class="fase-dot" style="background:#534AB7"></div>
-        <div>
-          <div class="fase-name">Fase 4 — Producción y colas</div>
-          <div class="fase-weeks">Semanas 16–20 · Mes 4–5</div>
-        </div>
-      </div>
-      <div class="fh-bar-wrap">
-        <div class="fh-bar-track"><div class="fh-bar-fill" id="fb4" style="width:0%;background:#534AB7"></div></div>
-      </div>
-      <div class="fh-right">
-        <span class="fh-pct" id="fp4">0 / 5</span>
-        <span class="arrow" id="arr4">▶</span>
-      </div>
-    </div>
-    <div class="semanas-grid" id="sg4">
-      <div class="mes-label">Mes 4</div>
-      <div class="semana-row" id="s16">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s16','#534AB7')" id="sc16">16</div></div>
-        <div class="s-body">
-          <div class="s-title">Cola FIFO de producción</div>
-          <div class="s-desc">Organizar pedidos aprobados en cola · Orden por fecha de entrega (FIFO) · Visualización de la cola completa · Bloquear pedidos sin material</div>
-          <div class="s-tags"><span class="tag" style="background:#eeedfe;color:#3c3489">Cola</span><span class="tag" style="background:#eeedfe;color:#3c3489">FIFO</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#eeedfe;color:#3c3489">Cola</span></div>
-      </div>
-      <div class="semana-row" id="s17">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s17','#534AB7')" id="sc17">17</div></div>
-        <div class="s-body">
-          <div class="s-title">Asignación de tareas</div>
-          <div class="s-desc">Desglosar pedido en tareas: Corte, Impresión, Armado, Empaque · Asignar empleado por área · Estado por tarea individual</div>
-          <div class="s-tags"><span class="tag" style="background:#eeedfe;color:#3c3489">Tareas</span><span class="tag" style="background:#eeedfe;color:#3c3489">Empleados</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#eeedfe;color:#3c3489">Tareas</span></div>
-      </div>
-      <div class="semana-row" id="s18">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s18','#534AB7')" id="sc18">18</div></div>
-        <div class="s-body">
-          <div class="s-title">Pantalla de producción</div>
-          <div class="s-desc">Vista de TV/monitor · Trabajo actual con empleado y tiempo restante · Siguiente trabajo en cola · Actualización automática cada 30 seg</div>
-          <div class="s-tags"><span class="tag" style="background:#eeedfe;color:#3c3489">Pantalla</span><span class="tag" style="background:#eeedfe;color:#3c3489">Tiempo real</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#eeedfe;color:#3c3489">Monitor</span></div>
-      </div>
-      <div class="mes-label">Mes 5</div>
-      <div class="semana-row" id="s19">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s19','#534AB7')" id="sc19">19</div></div>
-        <div class="s-body">
-          <div class="s-title">Avance de tarea por empleado</div>
-          <div class="s-desc">Empleado marca inicio y fin de su tarea · Descuento automático de material al iniciar · Cambio de estado en tiempo real</div>
-          <div class="s-tags"><span class="tag" style="background:#eeedfe;color:#3c3489">Avance</span><span class="tag" style="background:#eeedfe;color:#3c3489">Auto</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#eeedfe;color:#3c3489">Empleado</span></div>
-      </div>
-      <div class="semana-row" id="s20">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s20','#534AB7')" id="sc20">20</div></div>
-        <div class="s-body">
-          <div class="s-title">Integración y pruebas de flujo completo</div>
-          <div class="s-desc">Probar flujo: Pedido → Bodega → Cola → Tareas → Pantalla · Corregir errores de lógica · Validar descuento correcto de stock</div>
-          <div class="s-tags"><span class="tag" style="background:#eeedfe;color:#3c3489">Testing</span><span class="tag" style="background:#eeedfe;color:#3c3489">Integración</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#534AB7;color:#fff">✓ Entrega F4</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FASE 5 -->
-  <div class="fase-wrap">
-    <div class="fase-head" onclick="toggleFase(5)">
-      <div class="fh-left">
-        <div class="fase-dot" style="background:#3B6D11"></div>
-        <div>
-          <div class="fase-name">Fase 5 — Reportes, ajustes e instalación</div>
-          <div class="fase-weeks">Semanas 21–24 · Mes 6</div>
-        </div>
-      </div>
-      <div class="fh-bar-wrap">
-        <div class="fh-bar-track"><div class="fh-bar-fill" id="fb5" style="width:0%;background:#3B6D11"></div></div>
-      </div>
-      <div class="fh-right">
-        <span class="fh-pct" id="fp5">0 / 4</span>
-        <span class="arrow" id="arr5">▶</span>
-      </div>
-    </div>
-    <div class="semanas-grid" id="sg5">
-      <div class="mes-label">Mes 6</div>
-      <div class="semana-row" id="s21">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s21','#3B6D11')" id="sc21">21</div></div>
-        <div class="s-body">
-          <div class="s-title">Reportes de producción</div>
-          <div class="s-desc">Pedidos completados por período · Eficiencia por empleado · Materiales más usados · Gráficos básicos de resumen</div>
-          <div class="s-tags"><span class="tag" style="background:#eaf3de;color:#27500a">Reportes</span><span class="tag" style="background:#eaf3de;color:#27500a">Gráficos</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#eaf3de;color:#27500a">Reportes</span></div>
-      </div>
-      <div class="semana-row" id="s22">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s22','#3B6D11')" id="sc22">22</div></div>
-        <div class="s-body">
-          <div class="s-title">Exportación y dashboard final</div>
-          <div class="s-desc">Exportar reportes a PDF · Dashboard principal con KPIs · Resumen de alertas activas · Vista general del sistema</div>
-          <div class="s-tags"><span class="tag" style="background:#eaf3de;color:#27500a">PDF</span><span class="tag" style="background:#eaf3de;color:#27500a">Dashboard</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#eaf3de;color:#27500a">Dashboard</span></div>
-      </div>
-      <div class="semana-row" id="s23">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s23','#3B6D11')" id="sc23">23</div></div>
-        <div class="s-body">
-          <div class="s-title">Pruebas finales con datos reales</div>
-          <div class="s-desc">Cargar datos reales de la empresa · Pruebas con usuarios reales (admin y empleados) · Corrección de errores detectados · Ajustes de UX</div>
-          <div class="s-tags"><span class="tag" style="background:#eaf3de;color:#27500a">QA</span><span class="tag" style="background:#eaf3de;color:#27500a">Usuarios</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#eaf3de;color:#27500a">QA</span></div>
-      </div>
-      <div class="semana-row" id="s24">
-        <div class="s-left"><div class="s-circle" onclick="toggleS('s24','#3B6D11')" id="sc24">24</div></div>
-        <div class="s-body">
-          <div class="s-title">Instalación en servidor y capacitación</div>
-          <div class="s-desc">Instalar en servidor de la empresa · Configurar accesos y red interna · Capacitar a administrador y empleados · Documentación básica de uso</div>
-          <div class="s-tags"><span class="tag" style="background:#eaf3de;color:#27500a">Deploy</span><span class="tag" style="background:#eaf3de;color:#27500a">Capacitación</span></div>
-        </div>
-        <div><span class="entrega-badge" style="background:#3B6D11;color:#fff">✓ Entrega Final</span></div>
-      </div>
+    <div class="hero-meta">
+      <div class="hero-stat"><div class="hero-stat-val">6</div><div class="hero-stat-lbl">Meses</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">25</div><div class="hero-stat-lbl">Semanas</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">6</div><div class="hero-stat-lbl">Fases</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">10</div><div class="hero-stat-lbl">Módulos</div></div>
     </div>
   </div>
 </div>
 
-<script>
-const faseConfig={1:{total:5,start:1},2:{total:5,start:6},3:{total:5,start:11},4:{total:5,start:16},5:{total:4,start:21}};
-const TOTAL=24;
-const state={};
-function toggleFase(n){
-  const sg=document.getElementById('sg'+n);
-  const arr=document.getElementById('arr'+n);
-  const open=sg.classList.toggle('open');
-  arr.classList.toggle('open',open);
-}
-function toggleS(id,color){
-  state[id]=!state[id];
-  const num=id.replace('s','');
-  const c=document.getElementById('sc'+num);
-  if(state[id]){c.style.background=color;c.style.color='#fff';c.style.borderColor=color;}
-  else{c.style.background='';c.style.color='';c.style.borderColor='';}
-  document.getElementById(id).classList.toggle('done',state[id]);
-  updateAll();
-}
-function updateAll(){
-  let totalDone=0;
-  for(let f=1;f<=5;f++){
-    const cfg=faseConfig[f];
-    let done=0;
-    for(let i=cfg.start;i<cfg.start+cfg.total;i++){if(state['s'+i])done++;}
-    const pct=Math.round((done/cfg.total)*100);
-    document.getElementById('fb'+f).style.width=pct+'%';
-    document.getElementById('fp'+f).textContent=done+' / '+cfg.total;
-    totalDone+=done;
-  }
-  const gPct=Math.round((totalDone/TOTAL)*100);
-  document.getElementById('prog-fill').style.width=gPct+'%';
-  document.getElementById('prog-pct').textContent=gPct+'%';
-  document.getElementById('kpi-done').textContent=totalDone;
-  document.getElementById('kpi-rest').textContent=TOTAL-totalDone;
-}
-toggleFase(1);
-</script>
+<div class="main">
+
+<!-- ══════════ FASE 1 ══════════ -->
+<div class="fase-label">
+  <div class="fase-dot" style="background:var(--c2);"></div>
+  <div class="fase-name">Fase 1 — Base del sistema</div>
+  <span class="fase-range">Semanas 1–5 · Mes 1</span>
+  <span class="fase-tag" style="background:var(--c2l);color:var(--c2t);">Infraestructura</span>
+</div>
+<div class="semanas">
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">1</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Entorno de desarrollo y servidor</div>
+      <div class="s-desc">Instalar Ubuntu Server 24.04 LTS · Configurar SSH e IP fija (192.168.1.10) · Nginx + Python 3 + MySQL · Entorno virtual Flask · Primer deploy funcionando</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Ubuntu</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Nginx</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">SSH</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Git</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c2l);color:var(--c2t);">Servidor listo</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">2</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Base de datos — 13 tablas</div>
+      <div class="s-desc">Diseño con SQLAlchemy: usuarios, empleados, clientes, materiales, lotes, movimientos, pedidos, cola_produccion, tareas, historial_tiempos, mermas, proveedores, ordenes_compra · Flask-Migrate · Datos de prueba</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">SQLAlchemy</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">MySQL</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Flask-Migrate</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c2l);color:var(--c2t);">BD funcional</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">3</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Login, sesiones y roles</div>
+      <div class="s-desc">Flask-Login · Roles: Admin, Empleado · Contraseñas con werkzeug hash · @login_required y @admin_required en todas las rutas · Logout con expiración de sesión</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Flask-Login</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Roles</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Seguridad</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c2l);color:var(--c2t);">Auth listo</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">4</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Layout, UI base y navegación</div>
+      <div class="s-desc">base.html con Jinja2 · Sidebar con todos los módulos · CSS variables globales · Componentes reutilizables: tablas, badges, botones, cards · Dashboard principal con KPIs vacíos</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Jinja2</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">HTML/CSS</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Componentes</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c2l);color:var(--c2t);">UI base</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">5</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Gestión de usuarios + deploy en empresa</div>
+      <div class="s-desc">CRUD de usuarios con roles · Cambio de contraseña · Deploy al servidor Ubuntu de la empresa · Crear usuarios reales · Prueba con el cliente desde sus PCs</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">CRUD</span>
+        <span class="tag" style="background:var(--c5l);color:var(--c5t);">Deploy</span>
+        <span class="tag" style="background:var(--c5l);color:var(--c5t);">✓ Entrega F1</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c5);color:#fff;">✓ Entrega</span>
+  </div>
+</div>
+
+<!-- ══════════ FASE 2 ══════════ -->
+<div class="fase-label">
+  <div class="fase-dot" style="background:var(--c1);"></div>
+  <div class="fase-name">Fase 2 — Bodega e inventario</div>
+  <span class="fase-range">Semanas 6–10 · Mes 2</span>
+  <span class="fase-tag" style="background:var(--c1l);color:var(--c1t);">Inventario</span>
+</div>
+<div class="semanas">
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">6</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Registro de materiales reales + código de barras</div>
+      <div class="s-desc">CRUD materiales con atributos específicos: ancho_rollo (1.27m/1.52m), largo (50m), tipo · Generación automática de código de barras con python-barcode · PDF de etiqueta adhesiva con reportlab · Clasificación por categoría</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">CRUD</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Código de barras</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">PDF etiqueta</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c1l);color:var(--c1t);">Materiales</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">7</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Entradas de bodega con escáner + FIFO</div>
+      <div class="s-desc">Formulario de recepción con escáner USB · Cada entrada crea un lote con fecha (FIFO) · Stock actualizado automáticamente · Registro: quién, cuándo, de qué proveedor · Importar stock inicial desde Excel</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">FIFO</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Escáner USB</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Lotes</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c1l);color:var(--c1t);">Entradas</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">8</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Salidas, mermas y pérdida por rollos/metros</div>
+      <div class="s-desc">Salida con escáner → FIFO automático descuenta del lote más antiguo · Registro de mermas con motivo (corte defectuoso, daño, prueba) · Medición en metros lineales/m² para materiales en rollo · Historial completo</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">FIFO</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Mermas</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Rollos/metros</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c1l);color:var(--c1t);">Salidas</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">9</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Kanban del inventario + clasificación ABC</div>
+      <div class="s-desc">Vista Kanban principal: columnas Disponible / Bajo stock / Agotado · Tarjetas por material con categoría y estado · Filtros por tipo y clase ABC · Clasificación A/B/C automática (cron semanal) · Actualización cada 30s</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Kanban</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">ABC</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Tiempo real</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c1l);color:var(--c1t);">Kanban</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">10</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Alertas de stock + proveedores + órdenes de compra</div>
+      <div class="s-desc">Alertas automáticas cuando stock baja del mínimo · Registro de proveedores por material · Generación automática de orden de compra al detectar faltante · Panel de alertas en el dashboard del admin</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Alertas</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Proveedores</span>
+        <span class="tag" style="background:var(--c5l);color:var(--c5t);">✓ Entrega F2</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c5);color:#fff;">✓ Entrega</span>
+  </div>
+</div>
+
+<!-- ══════════ FASE 3 ══════════ -->
+<div class="fase-label">
+  <div class="fase-dot" style="background:var(--c3);"></div>
+  <div class="fase-name">Fase 3 — Clientes y pedidos</div>
+  <span class="fase-range">Semanas 11–15 · Mes 3</span>
+  <span class="fase-tag" style="background:var(--c3l);color:var(--c3t);">Pedidos</span>
+</div>
+<div class="semanas">
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">11</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Gestión de clientes con niveles de importancia</div>
+      <div class="s-desc">CRUD clientes: nombre, RUC, contacto · Nivel: Normal / Frecuente / VIP (afecta la prioridad en la cola) · Historial de pedidos por cliente · Búsqueda y filtros</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Clientes</span>
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Niveles VIP</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c3l);color:var(--c3t);">Clientes</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">12</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Formulario de pedido + cálculo automático de rollos</div>
+      <div class="s-desc">Crear pedido: código (formato 9000XXXX), etiquetas x plancha, cantidad, tipo de material · Cálculo automático: planchas → metros → rollos necesarios · Verificación instantánea contra stock de bodega</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Pedidos</span>
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Cálculo rollos</span>
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Código 9000XXXX</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c3l);color:var(--c3t);">Pedidos</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">13</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Verificación de material y bloqueo automático</div>
+      <div class="s-desc">Al crear pedido: si hay rollos suficientes del ancho requerido → pasa a cola · Si no hay → bloquea el pedido, genera orden de compra automática y deja en espera · Estado visible en el tablero</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Stock check</span>
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Bloqueo auto</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c3l);color:var(--c3t);">Verificación</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">14</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Cálculo de costo y tiempo estimado</div>
+      <div class="s-desc">Costo estimado según material y cantidad de rollos · Tiempo estimado basado en historial real de tiempos del Excel (T1–T10, media, tiempo total x rollo) · Resumen antes de confirmar el pedido</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Costo</span>
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Tiempo estimado</span>
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Historial Excel</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c3l);color:var(--c3t);">Cálculos</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">15</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Estados, seguimiento y progreso por pedido</div>
+      <div class="s-desc">Estados: Pendiente / En proceso / Bloqueado / Completado · Barra de progreso (equivalente al 35.01% del Excel) · Vista general de todos los pedidos activos · Cambio automático según avance de producción</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Estados</span>
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Progreso %</span>
+        <span class="tag" style="background:var(--c5l);color:var(--c5t);">✓ Entrega F3</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c5);color:#fff;">✓ Entrega</span>
+  </div>
+</div>
+
+<!-- ══════════ FASE 4 ══════════ -->
+<div class="fase-label">
+  <div class="fase-dot" style="background:var(--c4);"></div>
+  <div class="fase-name">Fase 4 — Producción y cola inteligente</div>
+  <span class="fase-range">Semanas 16–20 · Mes 4–5</span>
+  <span class="fase-tag" style="background:var(--c4l);color:var(--c4t);">Producción</span>
+</div>
+<div class="semanas">
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">16</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Cola con prioridad ponderada (no solo FIFO)</div>
+      <div class="s-desc">Algoritmo: puntaje = tamaño pedido (35%) + demanda del producto (30%) + nivel cliente VIP (25%) + urgencia fecha (10%) · Los pedidos se ordenan automáticamente · Cola separada para bloqueados sin material</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Cola inteligente</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Prioridad ponderada</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">VIP · Demanda</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c4l);color:var(--c4t);">Cola</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">17</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Visibilidad total de la cola con ETA</div>
+      <div class="s-desc">Panel visual: posición, estado, inicio estimado, fin estimado, tiempo restante en tiempo real · Estados: En producción / En espera / Bloqueado · ETA calculado desde historial de tiempos de corte e impresión</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">ETA real</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Tiempos corte/impresión</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Countdown</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c4l);color:var(--c4t);">Visibilidad</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">18</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Asignación de tareas por área</div>
+      <div class="s-desc">Desglose del pedido en tareas: Corte / Impresión / Laminado / Empaque · Asignar empleado por área · Estado por tarea individual · Empleado marca inicio y fin desde su PC</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Tareas</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Por área</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Empleados</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c4l);color:var(--c4t);">Tareas</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">19</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Pantalla de producción en TV (tiempo real)</div>
+      <div class="s-desc">Vista fullscreen para TV/monitor: trabajo actual, responsable, tiempo transcurrido, tiempo restante, siguiente en cola · Raspberry Pi en Chromium modo kiosk · Socket.IO para actualización automática · Los 3 siguientes trabajos con ETA</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">TV pantalla</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Socket.IO</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Raspberry Pi</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c4l);color:var(--c4t);">Pantalla TV</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">20</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Integración y pruebas del flujo completo</div>
+      <div class="s-desc">Probar flujo completo: Pedido → Verificación stock → Cola → Tareas → Pantalla TV → Progreso · Corregir errores de lógica · Validar descuento FIFO correcto · Actualizar historial_tiempos con datos reales</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Testing</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Integración</span>
+        <span class="tag" style="background:var(--c5l);color:var(--c5t);">✓ Entrega F4</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c5);color:#fff;">✓ Entrega</span>
+  </div>
+</div>
+
+<!-- ══════════ FASE 5 ══════════ -->
+<div class="fase-label">
+  <div class="fase-dot" style="background:var(--c6);"></div>
+  <div class="fase-name">Fase 5 — Calidad AQL y reportes</div>
+  <span class="fase-range">Semanas 21–23 · Mes 6</span>
+  <span class="fase-tag" style="background:var(--c6l);color:var(--c6t);">Calidad · ISO</span>
+</div>
+<div class="semanas">
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">21</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Módulo AQL — Control de calidad ISO 2859-1</div>
+      <div class="s-desc">Sistema de inspección por lote: ingreso de defectos críticos, mayores y menores · Tabla ISO 2859-1 aplicada automáticamente según tamaño del lote · Resultado: APROBADO / RECHAZADO · Código SGCPPAQL-YYYYMMDD-NNN generado automáticamente</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c6l);color:var(--c6t);">ISO 2859-1</span>
+        <span class="tag" style="background:var(--c6l);color:var(--c6t);">AQL</span>
+        <span class="tag" style="background:var(--c6l);color:var(--c6t);">3 niveles defectos</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c6l);color:var(--c6t);">AQL</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">22</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Reportes de producción y dashboard final</div>
+      <div class="s-desc">Pedidos completados por período · Eficiencia por empleado · Materiales más usados y mermas · Tiempos reales vs estimados · Exportar a PDF con reportlab · Dashboard KPIs en tiempo real</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c6l);color:var(--c6t);">Reportes</span>
+        <span class="tag" style="background:var(--c6l);color:var(--c6t);">PDF</span>
+        <span class="tag" style="background:var(--c6l);color:var(--c6t);">Dashboard KPI</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c6l);color:var(--c6t);">Reportes</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">23</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Backup automático + pruebas con datos reales</div>
+      <div class="s-desc">Backup semanal: mysqldump → rclone → Google Drive · Pruebas con pedidos reales de la empresa · Corrección de errores de UX · Ajustes según feedback del equipo · Sistema listo para uso diario</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c6l);color:var(--c6t);">Backup nube</span>
+        <span class="tag" style="background:var(--c6l);color:var(--c6t);">rclone</span>
+        <span class="tag" style="background:var(--c6l);color:var(--c6t);">QA real</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c6l);color:var(--c6t);">QA + Backup</span>
+  </div>
+</div>
+
+<!-- ══════════ FASE 6 ══════════ -->
+<div class="fase-label">
+  <div class="fase-dot" style="background:var(--c5);"></div>
+  <div class="fase-name">Fase 6 — Instalación y capacitación</div>
+  <span class="fase-range">Semanas 24–25 · Mes 6</span>
+  <span class="fase-tag" style="background:var(--c5l);color:var(--c5t);">Entrega final</span>
+</div>
+<div class="semanas">
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">24</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Instalación definitiva en la empresa</div>
+      <div class="s-desc">Deploy final en Ubuntu Server · Configurar Gunicorn como servicio permanente (systemd) · IP fija 192.168.1.10 en toda la red · Raspberry Pi en modo kiosk apuntando a /pantalla · Escáneres USB en bodega y producción listos</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c5l);color:var(--c5t);">Deploy</span>
+        <span class="tag" style="background:var(--c5l);color:var(--c5t);">Raspberry Pi</span>
+        <span class="tag" style="background:var(--c5l);color:var(--c5t);">Red interna</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c5l);color:var(--c5t);">Instalación</span>
+  </div>
+
+  <div class="semana">
+    <div class="s-week"><div class="s-week-num">25</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Capacitación + documentación + entrega oficial</div>
+      <div class="s-desc">Sesión de capacitación: admin (panel completo) y empleados (producción + escáner) · Documentación básica de uso · Importar datos históricos del Excel · Migrar de Excel al sistema definitivamente · Entrega oficial del proyecto</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c5l);color:var(--c5t);">Capacitación</span>
+        <span class="tag" style="background:var(--c5l);color:var(--c5t);">Migración Excel</span>
+        <span class="tag" style="background:var(--c5);color:#fff;">✓ Entrega Final</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c5);color:#fff;">✓ Final</span>
+  </div>
+</div>
+
+<!-- ENTREGA BANNER -->
+<div class="entrega-banner">
+  <div class="eb-left">
+    <div class="eb-title">Sistema de Gestión de Producción — Entrega oficial</div>
+    <div class="eb-sub">Semana 25 · Mes 6 · Imprenta completamente digitalizada</div>
+  </div>
+  <div class="eb-badge">Proyecto completado</div>
+</div>
+
+</div><!-- /main -->
+
+<div class="footer">
+  Desarrollado para <span>Imprenta ProPrint</span> · Stack: Python · Flask · MySQL · Ubuntu Server · Nginx · ISO 2859-1
+</div>
+
 </body>
 </html>
