@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>SGP — Cronograma de Desarrollo</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<title>SGP — Cronograma de Desarrollo (Entregado)</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 :root{
   --bg:#F7F6F2;
@@ -20,6 +20,7 @@
   --c4:#534AB7;--c4l:#EEEDFE;--c4t:#3C3489;
   --c5:#3B6D11;--c5l:#EAF3DE;--c5t:#27500A;
   --c6:#A32D2D;--c6l:#FCEBEB;--c6t:#791F1F;
+  --ok:#0F6E56;
   --radius:10px;
   --radius-sm:6px;
 }
@@ -30,6 +31,7 @@ body{
   color:var(--text);
   min-height:100vh;
   padding:0;
+  -webkit-font-smoothing:antialiased;
 }
 
 /* HERO */
@@ -45,39 +47,33 @@ body{
   position:absolute;
   inset:0;
   background:repeating-linear-gradient(
-    90deg,
-    transparent,
-    transparent 60px,
-    rgba(255,255,255,0.02) 60px,
-    rgba(255,255,255,0.02) 61px
+    90deg,transparent,transparent 60px,
+    rgba(255,255,255,0.02) 60px,rgba(255,255,255,0.02) 61px
   ),repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 60px,
-    rgba(255,255,255,0.02) 60px,
-    rgba(255,255,255,0.02) 61px
+    0deg,transparent,transparent 60px,
+    rgba(255,255,255,0.02) 60px,rgba(255,255,255,0.02) 61px
   );
 }
 .hero-inner{max-width:900px;margin:0 auto;position:relative;}
 .hero-badge{
   display:inline-flex;align-items:center;gap:8px;
-  background:rgba(255,255,255,0.08);
-  border:0.5px solid rgba(255,255,255,0.15);
+  background:rgba(74,222,128,0.10);
+  border:0.5px solid rgba(74,222,128,0.30);
   border-radius:20px;padding:4px 12px;
-  font-size:11px;font-weight:500;color:rgba(255,255,255,0.6);
+  font-size:11px;font-weight:600;color:#8FE9B4;
   margin-bottom:20px;letter-spacing:.5px;text-transform:uppercase;
 }
 .hero-dot{width:6px;height:6px;border-radius:50%;background:#4ADE80;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
 .hero h1{font-size:36px;font-weight:600;letter-spacing:-1px;margin-bottom:8px;line-height:1.1;}
 .hero h1 span{color:rgba(255,255,255,0.35);}
-.hero-sub{font-size:14px;color:rgba(255,255,255,0.5);max-width:500px;line-height:1.6;}
+.hero-sub{font-size:14px;color:rgba(255,255,255,0.5);max-width:560px;line-height:1.6;}
 .hero-meta{
   display:flex;gap:32px;margin-top:32px;
   padding-top:24px;border-top:0.5px solid rgba(255,255,255,0.1);
 }
-.hero-stat{}
 .hero-stat-val{font-size:28px;font-weight:600;color:#fff;}
+.hero-stat-val em{font-style:normal;color:#8FE9B4;}
 .hero-stat-lbl{font-size:11px;color:rgba(255,255,255,0.4);margin-top:2px;text-transform:uppercase;letter-spacing:.5px;}
 .stack-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:24px;}
 .stack-pill{
@@ -88,47 +84,82 @@ body{
   font-family:'DM Mono',monospace;
 }
 
-/* MAIN CONTENT */
-.main{max-width:900px;margin:0 auto;padding:40px 24px 80px;}
+/* MAIN */
+.main{max-width:900px;margin:0 auto;padding:32px 24px 80px;}
+
+/* COMPLETION STRIP */
+.completion{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  background:var(--card);
+  border:0.5px solid var(--border);
+  border-left:3px solid var(--ok);
+  border-radius:var(--radius);
+  padding:16px 20px;margin-bottom:36px;
+}
+.completion-check{
+  width:34px;height:34px;flex:none;border-radius:50%;
+  background:var(--c1l);color:var(--ok);
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;font-weight:700;
+}
+.completion-text{flex:1;min-width:220px;}
+.completion-title{font-size:13px;font-weight:600;color:var(--text);}
+.completion-sub{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.5;}
+.completion-bar-wrap{display:flex;align-items:center;gap:10px;min-width:180px;}
+.completion-bar{flex:1;height:6px;border-radius:6px;background:var(--border);overflow:hidden;}
+.completion-bar span{display:block;height:100%;width:100%;background:var(--ok);border-radius:6px;}
+.completion-pct{font-size:12px;font-weight:600;color:var(--ok);font-family:'DM Mono',monospace;}
 
 /* FASE HEADERS */
 .fase-label{
-  display:flex;align-items:center;gap:12px;
-  margin:40px 0 14px;
-  padding-bottom:12px;
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  margin:38px 0 20px;padding-bottom:12px;
   border-bottom:0.5px solid var(--border2);
 }
-.fase-label:first-child{margin-top:0;}
-.fase-dot{width:10px;height:10px;border-radius:50%;}
+.fase-label:first-of-type{margin-top:0;}
+.fase-dot{width:10px;height:10px;border-radius:50%;flex:none;}
 .fase-name{font-size:13px;font-weight:600;color:var(--text);text-transform:uppercase;letter-spacing:.5px;}
 .fase-range{font-size:12px;color:var(--hint);margin-left:auto;}
 .fase-tag{font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.4px;}
+.fase-done{
+  font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;
+  text-transform:uppercase;letter-spacing:.4px;
+  background:var(--c1l);color:var(--ok);
+  display:inline-flex;align-items:center;gap:5px;
+}
 
-/* SEMANAS GRID */
-.semanas{display:flex;flex-direction:column;gap:8px;}
+/* SEMANAS — timeline spine */
+.semanas{
+  display:flex;flex-direction:column;gap:8px;
+  position:relative;padding-left:40px;
+}
+.semanas::before{
+  content:'';position:absolute;left:12px;top:20px;bottom:20px;
+  width:2px;background:var(--border2);border-radius:2px;
+}
 .semana{
+  position:relative;
   background:var(--card);
   border:0.5px solid var(--border);
   border-radius:var(--radius);
   padding:16px 20px;
-  display:grid;
-  grid-template-columns:52px 1fr auto;
-  gap:16px;
-  align-items:start;
-  transition:border-color .2s;
+  display:grid;grid-template-columns:52px 1fr auto;gap:16px;
+  align-items:start;transition:border-color .2s;
+}
+.semana::before{
+  content:'✓';position:absolute;left:-39px;top:16px;
+  width:24px;height:24px;border-radius:50%;
+  background:var(--pc,var(--c2));color:#fff;
+  font-size:13px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 0 4px var(--bg);
 }
 .semana:hover{border-color:var(--border2);}
-.s-week{
-  display:flex;flex-direction:column;align-items:center;
-  padding-top:2px;
-}
-.s-week-num{
-  font-size:22px;font-weight:600;color:var(--text);line-height:1;
-}
+.s-week{display:flex;flex-direction:column;align-items:center;padding-top:2px;}
+.s-week-num{font-size:22px;font-weight:600;color:var(--text);line-height:1;}
 .s-week-lbl{font-size:9px;color:var(--hint);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;}
-.s-body{}
-.s-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px;}
-.s-desc{font-size:11px;color:var(--muted);line-height:1.65;margin-bottom:6px;}
+.s-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.s-desc{font-size:11px;color:var(--muted);line-height:1.65;margin-bottom:8px;}
 .s-tags{display:flex;flex-wrap:wrap;gap:4px;}
 .tag{padding:2px 8px;border-radius:20px;font-size:10px;font-weight:500;font-family:'DM Mono',monospace;}
 .s-badge{
@@ -138,31 +169,88 @@ body{
   text-transform:uppercase;letter-spacing:.3px;
 }
 
+/* MODULOS ENTREGADOS */
+.mods-head{
+  display:flex;align-items:center;gap:12px;
+  margin:48px 0 18px;padding-bottom:12px;
+  border-bottom:0.5px solid var(--border2);
+}
+.mods-head .fase-name{margin:0;}
+.mods{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;}
+.mod{
+  background:var(--card);border:0.5px solid var(--border);
+  border-radius:var(--radius);padding:14px 16px;
+  display:flex;gap:12px;align-items:flex-start;
+}
+.mod-ico{
+  width:30px;height:30px;flex:none;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;font-family:'DM Mono',monospace;
+}
+.mod-name{font-size:12px;font-weight:600;color:var(--text);}
+.mod-desc{font-size:11px;color:var(--muted);line-height:1.5;margin-top:2px;}
+
+/* GALERIA DE CAPTURAS */
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.shot{
+  background:var(--card);border:0.5px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:0 1px 3px rgba(26,25,22,0.04);
+}
+.shot-bar{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 12px;border-bottom:0.5px solid var(--border);
+  background:var(--bg);
+}
+.shot-dots{display:flex;gap:4px;}
+.shot-dots i{width:8px;height:8px;border-radius:50%;background:var(--border2);display:block;}
+.shot-url{
+  font-family:'DM Mono',monospace;font-size:10px;color:var(--hint);
+  margin-left:6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.shot img{width:100%;height:auto;display:block;}
+.shot-cap{padding:11px 14px 13px;}
+.shot-cap b{font-size:12px;font-weight:600;color:var(--text);display:block;margin-bottom:2px;}
+.shot-cap span{font-size:11px;color:var(--muted);line-height:1.5;}
+
 /* ENTREGA FINAL */
 .entrega-banner{
-  background:var(--text);
-  border-radius:var(--radius);
-  padding:20px 24px;
-  display:flex;align-items:center;justify-content:space-between;
-  margin-top:40px;
+  background:var(--text);border-radius:var(--radius);
+  padding:20px 24px;display:flex;align-items:center;
+  justify-content:space-between;gap:16px;margin-top:44px;
 }
-.eb-left{}
 .eb-title{font-size:13px;font-weight:600;color:#fff;margin-bottom:3px;}
-.eb-sub{font-size:12px;color:rgba(255,255,255,0.4);}
+.eb-sub{font-size:12px;color:rgba(255,255,255,0.45);}
 .eb-badge{
-  background:rgba(255,255,255,0.1);
-  border:0.5px solid rgba(255,255,255,0.15);
+  background:rgba(74,222,128,0.14);border:0.5px solid rgba(74,222,128,0.30);
   border-radius:20px;padding:6px 16px;
-  font-size:11px;font-weight:600;color:#fff;
+  font-size:11px;font-weight:700;color:#8FE9B4;white-space:nowrap;
   text-transform:uppercase;letter-spacing:.5px;
 }
+
+/* PDF CTA */
+.pdf-cta{
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  margin-top:32px;text-align:center;
+}
+.pdf-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--ok);color:#fff;text-decoration:none;
+  padding:13px 24px;border-radius:var(--radius);
+  font-size:13px;font-weight:600;
+  box-shadow:0 2px 8px rgba(15,110,86,0.25);
+  transition:transform .15s,box-shadow .15s;
+}
+.pdf-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(15,110,86,0.30);}
+.pdf-btn svg{width:16px;height:16px;}
+.pdf-note{font-size:11px;color:var(--hint);}
 
 /* FOOTER */
 .footer{
   border-top:0.5px solid var(--border2);
-  padding:20px 24px;
-  text-align:center;
-  font-size:11px;color:var(--hint);
+  padding:22px 24px;text-align:center;
+  font-size:11px;color:var(--hint);line-height:1.7;
 }
 .footer span{color:var(--text);font-weight:500;}
 
@@ -171,9 +259,31 @@ body{
   .hero{padding:32px 20px 28px;}
   .hero h1{font-size:26px;}
   .hero-meta{gap:20px;}
-  .main{padding:28px 16px 60px;}
+  .main{padding:24px 16px 60px;}
+  .semanas{padding-left:30px;}
+  .semanas::before{left:9px;}
   .semana{grid-template-columns:40px 1fr;gap:12px;}
+  .semana::before{left:-30px;width:20px;height:20px;font-size:11px;}
   .s-badge{display:none;}
+  .mods{grid-template-columns:1fr;}
+  .gallery{grid-template-columns:1fr;}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition:none!important;}
+}
+
+/* PRINT → PDF */
+@media print{
+  @page{size:A4;margin:13mm 12mm;}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body{background:#fff;}
+  .main{padding:20px 0 0;}
+  .pdf-cta{display:none!important;}
+  .hero-dot{animation:none;}
+  .fase-label,.mods-head{break-after:avoid;page-break-after:avoid;}
+  .semana,.mod,.entrega-banner,.completion,.shot{break-inside:avoid;page-break-inside:avoid;}
+  .hero{break-after:avoid;}
 }
 </style>
 </head>
@@ -182,101 +292,116 @@ body{
 <!-- HERO -->
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-badge"><div class="hero-dot"></div>En desarrollo activo</div>
+    <div class="hero-badge"><div class="hero-dot"></div>Entregado · Sistema en producción</div>
     <h1>Sistema de Gestión<br><span>de Producción</span></h1>
-    <p class="hero-sub">Plan de desarrollo completo para la imprenta ProPrint — control de inventario, producción, calidad AQL y cola inteligente de pedidos.</p>
+    <p class="hero-sub">Cronograma completo del desarrollo <strong style="color:rgba(255,255,255,.75);font-weight:600">ya entregado</strong> para la imprenta ProPrint — inventario por scanner, pedidos con lectura de documentos, tablero Kanban de producción, monitor en planta y reportes exportables. Sistema en uso diario en la planta de Cuenca.</p>
     <div class="stack-pills">
-      <span class="stack-pill">Python · Flask</span>
-      <span class="stack-pill">MySQL</span>
-      <span class="stack-pill">HTML · CSS · JS</span>
-      <span class="stack-pill">Ubuntu Server</span>
-      <span class="stack-pill">Nginx · Gunicorn</span>
-      <span class="stack-pill">ISO 2859-1 AQL</span>
+      <span class="stack-pill">Python 3.14 · Flask</span>
+      <span class="stack-pill">SQLAlchemy · SQLite</span>
+      <span class="stack-pill">Angular 21 · TypeScript</span>
+      <span class="stack-pill">Tailwind CSS</span>
+      <span class="stack-pill">Gunicorn · Ubuntu Server</span>
+      <span class="stack-pill">OCR Tesseract · pdfplumber</span>
+      <span class="stack-pill">ReportLab</span>
     </div>
     <div class="hero-meta">
       <div class="hero-stat"><div class="hero-stat-val">6</div><div class="hero-stat-lbl">Meses</div></div>
       <div class="hero-stat"><div class="hero-stat-val">25</div><div class="hero-stat-lbl">Semanas</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">6</div><div class="hero-stat-lbl">Fases</div></div>
-      <div class="hero-stat"><div class="hero-stat-val">10</div><div class="hero-stat-lbl">Módulos</div></div>
+      <div class="hero-stat"><div class="hero-stat-val">8</div><div class="hero-stat-lbl">Módulos</div></div>
+      <div class="hero-stat"><div class="hero-stat-val"><em>100%</em></div><div class="hero-stat-lbl">Completado</div></div>
     </div>
   </div>
 </div>
 
 <div class="main">
 
+<!-- COMPLETION STRIP -->
+<div class="completion">
+  <div class="completion-check">✓</div>
+  <div class="completion-text">
+    <div class="completion-title">Proyecto completado y en producción</div>
+    <div class="completion-sub">Las 6 fases y las 25 semanas del plan fueron entregadas. El sistema corre en el servidor interno de la planta (Ubuntu, 192.168.0.10) y se usa a diario en los computadores de ProPrint. Documento generado el 23 de septiembre de 2026.</div>
+  </div>
+  <div class="completion-bar-wrap">
+    <div class="completion-bar"><span></span></div>
+    <div class="completion-pct">100%</div>
+  </div>
+</div>
+
 <!-- ══════════ FASE 1 ══════════ -->
 <div class="fase-label">
   <div class="fase-dot" style="background:var(--c2);"></div>
-  <div class="fase-name">Fase 1 — Base del sistema</div>
+  <div class="fase-name">Fase 1 — Infraestructura y base del sistema</div>
   <span class="fase-range">Semanas 1–5 · Mes 1</span>
   <span class="fase-tag" style="background:var(--c2l);color:var(--c2t);">Infraestructura</span>
+  <span class="fase-done">✓ Completada</span>
 </div>
 <div class="semanas">
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c2);">
     <div class="s-week"><div class="s-week-num">1</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Entorno de desarrollo y servidor</div>
-      <div class="s-desc">Instalar Ubuntu Server 24.04 LTS · Configurar SSH e IP fija (192.168.1.10) · Nginx + Python 3 + MySQL · Entorno virtual Flask · Primer deploy funcionando</div>
+      <div class="s-title">Entorno de desarrollo y servidor de planta</div>
+      <div class="s-desc">Servidor Ubuntu on-site con IP fija (192.168.0.10) y acceso SSH · Python 3.14 + entorno virtual + Flask + Gunicorn · Render configurado como respaldo con build automático · Angular dev server (:4200) con proxy hacia Flask (:5001) · repositorio Git activo (<em>scp-angular-flask</em>).</div>
       <div class="s-tags">
-        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Ubuntu</span>
-        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Nginx</span>
-        <span class="tag" style="background:var(--c2l);color:var(--c2t);">SSH</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Ubuntu Server</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">SSH · IP fija</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Gunicorn</span>
         <span class="tag" style="background:var(--c2l);color:var(--c2t);">Git</span>
       </div>
     </div>
     <span class="s-badge" style="background:var(--c2l);color:var(--c2t);">Servidor listo</span>
   </div>
 
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c2);">
     <div class="s-week"><div class="s-week-num">2</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Base de datos — 13 tablas</div>
-      <div class="s-desc">Diseño con SQLAlchemy: usuarios, empleados, clientes, materiales, lotes, movimientos, pedidos, cola_produccion, tareas, historial_tiempos, mermas, proveedores, ordenes_compra · Flask-Migrate · Datos de prueba</div>
+      <div class="s-title">Modelo de datos SQLite con SQLAlchemy</div>
+      <div class="s-desc">Diseño de 8 modelos: Usuario, Material, Movimiento, Pedido, PedidoItem, EntregaParcialItem, ProductoCatalogo y Cliente · Base SQLite (<em>sgp.db</em>) · migraciones automáticas (<em>_migrar_*</em>) y <em>db.create_all()</em> al arranque, sin perder filas · creación automática del usuario administrador inicial.</div>
       <div class="s-tags">
         <span class="tag" style="background:var(--c2l);color:var(--c2t);">SQLAlchemy</span>
-        <span class="tag" style="background:var(--c2l);color:var(--c2t);">MySQL</span>
-        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Flask-Migrate</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">SQLite</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">8 modelos</span>
       </div>
     </div>
     <span class="s-badge" style="background:var(--c2l);color:var(--c2t);">BD funcional</span>
   </div>
 
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c2);">
     <div class="s-week"><div class="s-week-num">3</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Login, sesiones y roles</div>
-      <div class="s-desc">Flask-Login · Roles: Admin, Empleado · Contraseñas con werkzeug hash · @login_required y @admin_required en todas las rutas · Logout con expiración de sesión</div>
+      <div class="s-title">Autenticación, sesiones y roles</div>
+      <div class="s-desc">Flask-Login con cookie de sesión HttpOnly + SameSite=Lax y duración de 10 h · contraseñas con hash de Werkzeug · roles admin / jefe / operador · <em>@login_required</em> en las rutas y refuerzo de permisos en el backend · en el frontend, interceptor que redirige el 401 a /app/login y guard de ruta.</div>
       <div class="s-tags">
         <span class="tag" style="background:var(--c2l);color:var(--c2t);">Flask-Login</span>
         <span class="tag" style="background:var(--c2l);color:var(--c2t);">Roles</span>
-        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Seguridad</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Cookie HttpOnly</span>
       </div>
     </div>
     <span class="s-badge" style="background:var(--c2l);color:var(--c2t);">Auth listo</span>
   </div>
 
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c2);">
     <div class="s-week"><div class="s-week-num">4</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Layout, UI base y navegación</div>
-      <div class="s-desc">base.html con Jinja2 · Sidebar con todos los módulos · CSS variables globales · Componentes reutilizables: tablas, badges, botones, cards · Dashboard principal con KPIs vacíos</div>
+      <div class="s-title">Arquitectura frontend Angular 21 + Tailwind</div>
+      <div class="s-desc">Angular 21 con componentes standalone y Tailwind CSS v3 (tokens propios) · sidebar fijo en escritorio y navegación inferior en móvil · componentes reutilizables (tablas, badges, cards) · servicios centrales: <em>ApiService</em>, <em>Session</em> y un <em>ContadoresService</em> singleton para los badges.</div>
       <div class="s-tags">
-        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Jinja2</span>
-        <span class="tag" style="background:var(--c2l);color:var(--c2t);">HTML/CSS</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Angular 21</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Tailwind</span>
         <span class="tag" style="background:var(--c2l);color:var(--c2t);">Componentes</span>
       </div>
     </div>
     <span class="s-badge" style="background:var(--c2l);color:var(--c2t);">UI base</span>
   </div>
 
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c2);">
     <div class="s-week"><div class="s-week-num">5</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Gestión de usuarios + deploy en empresa</div>
-      <div class="s-desc">CRUD de usuarios con roles · Cambio de contraseña · Deploy al servidor Ubuntu de la empresa · Crear usuarios reales · Prueba con el cliente desde sus PCs</div>
+      <div class="s-title">Servido unificado + primer despliegue en la empresa</div>
+      <div class="s-desc">Un solo proceso Flask sirve el <em>dist</em> de Angular en /app/* y el API REST en /api/* · compilación con <em>ng build --base-href /app/</em> · primer deploy real al servidor Ubuntu de la planta y respaldo en Render · prueba con el cliente desde sus propios computadores.</div>
       <div class="s-tags">
-        <span class="tag" style="background:var(--c2l);color:var(--c2t);">CRUD</span>
-        <span class="tag" style="background:var(--c5l);color:var(--c5t);">Deploy</span>
+        <span class="tag" style="background:var(--c2l);color:var(--c2t);">Deploy</span>
+        <span class="tag" style="background:var(--c5l);color:var(--c5t);">API + dist</span>
         <span class="tag" style="background:var(--c5l);color:var(--c5t);">✓ Entrega F1</span>
       </div>
     </div>
@@ -290,72 +415,73 @@ body{
   <div class="fase-name">Fase 2 — Bodega e inventario</div>
   <span class="fase-range">Semanas 6–10 · Mes 2</span>
   <span class="fase-tag" style="background:var(--c1l);color:var(--c1t);">Inventario</span>
+  <span class="fase-done">✓ Completada</span>
 </div>
 <div class="semanas">
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c1);">
     <div class="s-week"><div class="s-week-num">6</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Registro de materiales reales + código de barras</div>
-      <div class="s-desc">CRUD materiales con atributos específicos: ancho_rollo (1.27m/1.52m), largo (50m), tipo · Generación automática de código de barras con python-barcode · PDF de etiqueta adhesiva con reportlab · Clasificación por categoría</div>
+      <div class="s-title">Registro de materiales por categoría real</div>
+      <div class="s-desc">CRUD de materiales con formulario que cambia según la categoría de Proprint: Materia Prima, Tintas y Herramientas · Tipo (Sustrato / Tinta / Cinta) y ancho visible solo para Sustrato · unidad de medida propia (rollos / ml / unidades) · clasificación automática (Materia Prima / Insumo) · SKU en mayúsculas; un SKU existente suma stock en vez de duplicar.</div>
       <div class="s-tags">
-        <span class="tag" style="background:var(--c1l);color:var(--c1t);">CRUD</span>
-        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Código de barras</span>
-        <span class="tag" style="background:var(--c1l);color:var(--c1t);">PDF etiqueta</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">CRUD materiales</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">3 categorías</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">SKU</span>
       </div>
     </div>
     <span class="s-badge" style="background:var(--c1l);color:var(--c1t);">Materiales</span>
   </div>
 
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c1);">
     <div class="s-week"><div class="s-week-num">7</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Entradas de bodega con escáner + FIFO</div>
-      <div class="s-desc">Formulario de recepción con escáner USB · Cada entrada crea un lote con fecha (FIFO) · Stock actualizado automáticamente · Registro: quién, cuándo, de qué proveedor · Importar stock inicial desde Excel</div>
+      <div class="s-title">Operaciones — entradas por scanner USB</div>
+      <div class="s-desc">Módulo de scanner del día a día · flujo rápido: escanear el código + Enter registra 1 rollo directamente (sin pulsar botón) · cantidad vuelve a 1 tras cada registro y modo manual para cargar lotes grandes · foco automático al siguiente escaneo · bloqueo del campo mientras la petición está en curso para evitar lecturas concatenadas.</div>
       <div class="s-tags">
-        <span class="tag" style="background:var(--c1l);color:var(--c1t);">FIFO</span>
-        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Escáner USB</span>
-        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Lotes</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Scanner USB</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Entradas</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Flujo rápido</span>
       </div>
     </div>
     <span class="s-badge" style="background:var(--c1l);color:var(--c1t);">Entradas</span>
   </div>
 
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c1);">
     <div class="s-week"><div class="s-week-num">8</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Salidas, mermas y pérdida por rollos/metros</div>
-      <div class="s-desc">Salida con escáner → FIFO automático descuenta del lote más antiguo · Registro de mermas con motivo (corte defectuoso, daño, prueba) · Medición en metros lineales/m² para materiales en rollo · Historial completo</div>
+      <div class="s-title">Salidas, validación de stock e historial permanente</div>
+      <div class="s-desc">Salida por scanner con validación de stock (si no alcanza, el mensaje muestra el disponible en la unidad real del material) · cada escaneo genera un movimiento independiente · historial permanente e inmutable de los últimos 50 movimientos, con fecha en hora de Ecuador (UTC-5), usuario y observación.</div>
       <div class="s-tags">
-        <span class="tag" style="background:var(--c1l);color:var(--c1t);">FIFO</span>
-        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Mermas</span>
-        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Rollos/metros</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Salidas</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Validación stock</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Historial</span>
       </div>
     </div>
     <span class="s-badge" style="background:var(--c1l);color:var(--c1t);">Salidas</span>
   </div>
 
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c1);">
     <div class="s-week"><div class="s-week-num">9</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Kanban del inventario + clasificación ABC</div>
-      <div class="s-desc">Vista Kanban principal: columnas Disponible / Bajo stock / Agotado · Tarjetas por material con categoría y estado · Filtros por tipo y clase ABC · Clasificación A/B/C automática (cron semanal) · Actualización cada 30s</div>
+      <div class="s-title">Estados de stock y alertas automáticas</div>
+      <div class="s-desc">Estados con color: Disponible (verde), Bajo (amarillo), Crítico (naranja) y Agotado (rojo parpadeante) · umbral configurable por material (stock mínimo = stock crítico) · badge rojo en el sidebar con la suma de materiales Críticos + Agotados, actualizado en cada navegación.</div>
       <div class="s-tags">
-        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Kanban</span>
-        <span class="tag" style="background:var(--c1l);color:var(--c1t);">ABC</span>
-        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Tiempo real</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Estados de stock</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Alertas</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Badges</span>
       </div>
     </div>
-    <span class="s-badge" style="background:var(--c1l);color:var(--c1t);">Kanban</span>
+    <span class="s-badge" style="background:var(--c1l);color:var(--c1t);">Alertas</span>
   </div>
 
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c1);">
     <div class="s-week"><div class="s-week-num">10</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Alertas de stock + proveedores + órdenes de compra</div>
-      <div class="s-desc">Alertas automáticas cuando stock baja del mínimo · Registro de proveedores por material · Generación automática de orden de compra al detectar faltante · Panel de alertas en el dashboard del admin</div>
+      <div class="s-title">Importación y exportación en Excel</div>
+      <div class="s-desc">Carga masiva del inventario desde Excel (asigna unidad de medida y clasificación según la categoría de cada material) · exportación del inventario a Excel · cierre del módulo de bodega con datos reales de la planta cargados.</div>
       <div class="s-tags">
-        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Alertas</span>
-        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Proveedores</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Importar Excel</span>
+        <span class="tag" style="background:var(--c1l);color:var(--c1t);">Exportar Excel</span>
         <span class="tag" style="background:var(--c5l);color:var(--c5t);">✓ Entrega F2</span>
       </div>
     </div>
@@ -366,73 +492,76 @@ body{
 <!-- ══════════ FASE 3 ══════════ -->
 <div class="fase-label">
   <div class="fase-dot" style="background:var(--c3);"></div>
-  <div class="fase-name">Fase 3 — Clientes y pedidos</div>
+  <div class="fase-name">Fase 3 — Clientes, catálogo y pedidos</div>
   <span class="fase-range">Semanas 11–15 · Mes 3</span>
   <span class="fase-tag" style="background:var(--c3l);color:var(--c3t);">Pedidos</span>
+  <span class="fase-done">✓ Completada</span>
 </div>
 <div class="semanas">
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c3);">
     <div class="s-week"><div class="s-week-num">11</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Gestión de clientes con niveles de importancia</div>
-      <div class="s-desc">CRUD clientes: nombre, RUC, contacto · Nivel: Normal / Frecuente / VIP (afecta la prioridad en la cola) · Historial de pedidos por cliente · Búsqueda y filtros</div>
+      <div class="s-title">Directorio de clientes recurrentes</div>
+      <div class="s-desc">CRUD de clientes: código único, nombre, RUC, direcciones de facturación y entrega, contacto, horarios y plazos de entrega · logo del cliente (PNG, máx. 200×200 px y 200 KB, validado en el backend) que luego aparece en el Monitor TV · buscador parcial reutilizado en Pedidos y en el Catálogo.</div>
       <div class="s-tags">
         <span class="tag" style="background:var(--c3l);color:var(--c3t);">Clientes</span>
-        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Niveles VIP</span>
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Logo</span>
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Buscador</span>
       </div>
     </div>
     <span class="s-badge" style="background:var(--c3l);color:var(--c3t);">Clientes</span>
   </div>
 
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c3);">
     <div class="s-week"><div class="s-week-num">12</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Formulario de pedido + cálculo automático de rollos</div>
-      <div class="s-desc">Crear pedido: código (formato 9000XXXX), etiquetas x plancha, cantidad, tipo de material · Cálculo automático: planchas → metros → rollos necesarios · Verificación instantánea contra stock de bodega</div>
+      <div class="s-title">Catálogo de productos con fórmula de producción</div>
+      <div class="s-desc">Catálogo con código único por cliente y sus datos técnicos: etiquetas por plancha, planchas, rollos, etiquetas por rollo, largos y ancho · vínculo <em>Material Usado</em> hacia el inventario · las etiquetas por rollo + el material vinculado son las que activan el descuento automático de stock · imagen de referencia para códigos especiales.</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Catálogo</span>
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Fórmula rollos</span>
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Material vinculado</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c3l);color:var(--c3t);">Catálogo</span>
+  </div>
+
+  <div class="semana" style="--pc:var(--c3);">
+    <div class="s-week"><div class="s-week-num">13</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Creación y seguimiento de pedidos</div>
+      <div class="s-desc">Alta de pedidos con cliente (del directorio o texto libre para esporádicos) y fecha/hora de entrega · ítems de trabajo con código del catálogo (filtrado por el cliente elegido), código manual o S/C, descripción y cantidad · resumen de revisión antes de confirmar y guardar.</div>
       <div class="s-tags">
         <span class="tag" style="background:var(--c3l);color:var(--c3t);">Pedidos</span>
-        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Cálculo rollos</span>
-        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Código 9000XXXX</span>
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Ítems</span>
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Catálogo · manual · S/C</span>
       </div>
     </div>
     <span class="s-badge" style="background:var(--c3l);color:var(--c3t);">Pedidos</span>
   </div>
 
-  <div class="semana">
-    <div class="s-week"><div class="s-week-num">13</div><div class="s-week-lbl">Semana</div></div>
-    <div class="s-body">
-      <div class="s-title">Verificación de material y bloqueo automático</div>
-      <div class="s-desc">Al crear pedido: si hay rollos suficientes del ancho requerido → pasa a cola · Si no hay → bloquea el pedido, genera orden de compra automática y deja en espera · Estado visible en el tablero</div>
-      <div class="s-tags">
-        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Stock check</span>
-        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Bloqueo auto</span>
-      </div>
-    </div>
-    <span class="s-badge" style="background:var(--c3l);color:var(--c3t);">Verificación</span>
-  </div>
-
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c3);">
     <div class="s-week"><div class="s-week-num">14</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Cálculo de costo y tiempo estimado</div>
-      <div class="s-desc">Costo estimado según material y cantidad de rollos · Tiempo estimado basado en historial real de tiempos del Excel (T1–T10, media, tiempo total x rollo) · Resumen antes de confirmar el pedido</div>
+      <div class="s-title">Lectura de documentos (PDF y OCR de imagen)</div>
+      <div class="s-desc">Al crear un pedido se puede subir una orden en PDF, PNG, JPG o WEBP · el backend extrae el texto con <em>pdfplumber</em> (PDF) o con OCR <em>pytesseract</em> (imagen) y, por reglas, detecta cliente, orden de compra, fecha e ítems · el formulario se prellena y resalta los campos hallados en amarillo para verificar · el guardado sigue siendo manual.</div>
       <div class="s-tags">
-        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Costo</span>
-        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Tiempo estimado</span>
-        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Historial Excel</span>
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">OCR Tesseract</span>
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">pdfplumber</span>
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Prellenado</span>
       </div>
     </div>
-    <span class="s-badge" style="background:var(--c3l);color:var(--c3t);">Cálculos</span>
+    <span class="s-badge" style="background:var(--c3l);color:var(--c3t);">Lectura doc.</span>
   </div>
 
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c3);">
     <div class="s-week"><div class="s-week-num">15</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Estados, seguimiento y progreso por pedido</div>
-      <div class="s-desc">Estados: Pendiente / En proceso / Bloqueado / Completado · Barra de progreso (equivalente al 35.01% del Excel) · Vista general de todos los pedidos activos · Cambio automático según avance de producción</div>
+      <div class="s-title">Ciclo de vida y descuento automático de stock</div>
+      <div class="s-desc">Estados del pedido: En Cola → Procesando → Terminado → (Retiro en Fábrica) → Entregado · al marcar Entregado, el sistema descuenta el inventario con la fórmula <em>ceil(etiquetas ÷ etiquetas por rollo)</em> y genera el movimiento de Salida · la edición retroactiva (solo Jefe) revierte y reaplica el descuento · los Entregados se archivan fuera de la lista principal.</div>
       <div class="s-tags">
         <span class="tag" style="background:var(--c3l);color:var(--c3t);">Estados</span>
-        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Progreso %</span>
+        <span class="tag" style="background:var(--c3l);color:var(--c3t);">Descuento auto</span>
         <span class="tag" style="background:var(--c5l);color:var(--c5t);">✓ Entrega F3</span>
       </div>
     </div>
@@ -443,75 +572,76 @@ body{
 <!-- ══════════ FASE 4 ══════════ -->
 <div class="fase-label">
   <div class="fase-dot" style="background:var(--c4);"></div>
-  <div class="fase-name">Fase 4 — Producción y cola inteligente</div>
+  <div class="fase-name">Fase 4 — Producción y monitor en planta</div>
   <span class="fase-range">Semanas 16–20 · Mes 4–5</span>
   <span class="fase-tag" style="background:var(--c4l);color:var(--c4t);">Producción</span>
+  <span class="fase-done">✓ Completada</span>
 </div>
 <div class="semanas">
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c4);">
     <div class="s-week"><div class="s-week-num">16</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Cola con prioridad ponderada (no solo FIFO)</div>
-      <div class="s-desc">Algoritmo: puntaje = tamaño pedido (35%) + demanda del producto (30%) + nivel cliente VIP (25%) + urgencia fecha (10%) · Los pedidos se ordenan automáticamente · Cola separada para bloqueados sin material</div>
+      <div class="s-title">Tablero Kanban de producción</div>
+      <div class="s-desc">Kanban en tiempo real con tres columnas: En Cola (amarillo), Procesando (azul) y Terminado (verde) · botones para mover cada tarjeta (Iniciar → · Terminar ✓ · Entregado ✓), reservados a Admin y Jefe · los pedidos Entregados salen del tablero · cada tarjeta muestra cliente, cantidad de productos y unidades totales.</div>
       <div class="s-tags">
-        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Cola inteligente</span>
-        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Prioridad ponderada</span>
-        <span class="tag" style="background:var(--c4l);color:var(--c4t);">VIP · Demanda</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Kanban</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">3 columnas</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Tiempo real</span>
       </div>
     </div>
-    <span class="s-badge" style="background:var(--c4l);color:var(--c4t);">Cola</span>
+    <span class="s-badge" style="background:var(--c4l);color:var(--c4t);">Kanban</span>
   </div>
 
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c4);">
     <div class="s-week"><div class="s-week-num">17</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Visibilidad total de la cola con ETA</div>
-      <div class="s-desc">Panel visual: posición, estado, inicio estimado, fin estimado, tiempo restante en tiempo real · Estados: En producción / En espera / Bloqueado · ETA calculado desde historial de tiempos de corte e impresión</div>
+      <div class="s-title">Semáforo de fechas y countdown en vivo</div>
+      <div class="s-desc">Cada tarjeta muestra la fecha de entrega con semáforo: verde a más de 3 días, amarillo entre 1 y 3 días, rojo a menos de 1 día o "Retrasado" si ya pasó · countdown en vivo (días, horas, minutos y segundos) que avanza cada segundo · el parseo de la fecha se cachea para no rehacerse en cada tick.</div>
       <div class="s-tags">
-        <span class="tag" style="background:var(--c4l);color:var(--c4t);">ETA real</span>
-        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Tiempos corte/impresión</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Semáforo</span>
         <span class="tag" style="background:var(--c4l);color:var(--c4t);">Countdown</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Retrasado</span>
       </div>
     </div>
-    <span class="s-badge" style="background:var(--c4l);color:var(--c4t);">Visibilidad</span>
+    <span class="s-badge" style="background:var(--c4l);color:var(--c4t);">Semáforo</span>
   </div>
 
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c4);">
     <div class="s-week"><div class="s-week-num">18</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Asignación de tareas por área</div>
-      <div class="s-desc">Desglose del pedido en tareas: Corte / Impresión / Laminado / Empaque · Asignar empleado por área · Estado por tarea individual · Empleado marca inicio y fin desde su PC</div>
+      <div class="s-title">Estados por ítem y entregas parciales</div>
+      <div class="s-desc">Cada ítem del pedido tiene su propio estado (pendiente / listo / suspendido / entregado parcial) · entregas parciales por cantidad respaldadas por el modelo <em>EntregaParcialItem</em> · barra de progreso del pedido · actualización optimista: el botón refleja "listo" en milisegundos y solo revierte si el servidor falla, sin congelar el resto del tablero.</div>
       <div class="s-tags">
-        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Tareas</span>
-        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Por área</span>
-        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Empleados</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Estados por ítem</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Entregas parciales</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Optimistic UI</span>
       </div>
     </div>
-    <span class="s-badge" style="background:var(--c4l);color:var(--c4t);">Tareas</span>
+    <span class="s-badge" style="background:var(--c4l);color:var(--c4t);">Ítems</span>
   </div>
 
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c4);">
     <div class="s-week"><div class="s-week-num">19</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Pantalla de producción en TV (tiempo real)</div>
-      <div class="s-desc">Vista fullscreen para TV/monitor: trabajo actual, responsable, tiempo transcurrido, tiempo restante, siguiente en cola · Raspberry Pi en Chromium modo kiosk · Socket.IO para actualización automática · Los 3 siguientes trabajos con ETA</div>
+      <div class="s-title">Pedidos-Monitor — pantalla tipo TV 24/7</div>
+      <div class="s-desc">Pantalla pensada para un monitor de planta encendido todo el día (endpoint <em>/api/pedidos/monitor-tv</em>) · cuatro conteos por estado y tarjetas de los pedidos activos con semáforo, countdown, número de orden y logo del cliente · se refresca por sondeo cada 2 s, con un servicio de contadores centralizado que evita duplicar peticiones.</div>
       <div class="s-tags">
-        <span class="tag" style="background:var(--c4l);color:var(--c4t);">TV pantalla</span>
-        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Socket.IO</span>
-        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Raspberry Pi</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Monitor TV</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">24/7</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Logos de cliente</span>
       </div>
     </div>
-    <span class="s-badge" style="background:var(--c4l);color:var(--c4t);">Pantalla TV</span>
+    <span class="s-badge" style="background:var(--c4l);color:var(--c4t);">Monitor TV</span>
   </div>
 
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c4);">
     <div class="s-week"><div class="s-week-num">20</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Integración y pruebas del flujo completo</div>
-      <div class="s-desc">Probar flujo completo: Pedido → Verificación stock → Cola → Tareas → Pantalla TV → Progreso · Corregir errores de lógica · Validar descuento FIFO correcto · Actualizar historial_tiempos con datos reales</div>
+      <div class="s-title">Integración del flujo completo y optimización</div>
+      <div class="s-desc">Prueba del flujo entero: Pedido → verificación → Kanban → Monitor → entrega (Retiro en Fábrica o Entregado) con descuento de stock correcto · optimizaciones de rendimiento: sondeo de badges centralizado en un único temporizador y caché de fechas del monitor para bajar el trabajo repetido en la pantalla siempre encendida.</div>
       <div class="s-tags">
-        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Testing</span>
         <span class="tag" style="background:var(--c4l);color:var(--c4t);">Integración</span>
+        <span class="tag" style="background:var(--c4l);color:var(--c4t);">Rendimiento</span>
         <span class="tag" style="background:var(--c5l);color:var(--c5t);">✓ Entrega F4</span>
       </div>
     </div>
@@ -522,81 +652,83 @@ body{
 <!-- ══════════ FASE 5 ══════════ -->
 <div class="fase-label">
   <div class="fase-dot" style="background:var(--c6);"></div>
-  <div class="fase-name">Fase 5 — Calidad AQL y reportes</div>
+  <div class="fase-name">Fase 5 — Reportes, exportación y responsive</div>
   <span class="fase-range">Semanas 21–23 · Mes 6</span>
-  <span class="fase-tag" style="background:var(--c6l);color:var(--c6t);">Calidad · ISO</span>
+  <span class="fase-tag" style="background:var(--c6l);color:var(--c6t);">Reportes</span>
+  <span class="fase-done">✓ Completada</span>
 </div>
 <div class="semanas">
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c6);">
     <div class="s-week"><div class="s-week-num">21</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Módulo AQL — Control de calidad ISO 2859-1</div>
-      <div class="s-desc">Sistema de inspección por lote: ingreso de defectos críticos, mayores y menores · Tabla ISO 2859-1 aplicada automáticamente según tamaño del lote · Resultado: APROBADO / RECHAZADO · Código SGCPPAQL-YYYYMMDD-NNN generado automáticamente</div>
+      <div class="s-title">Módulo de reportes con filtros</div>
+      <div class="s-desc">Reporte de stock: entradas y salidas agrupadas por material con filtro de fechas, cada fila en su unidad real · reporte de pedidos por rango de fechas, cliente (coincidencia parcial) y estado, con columnas de fecha prometida y fecha real de entrega · disponible para todos los usuarios con sesión.</div>
       <div class="s-tags">
-        <span class="tag" style="background:var(--c6l);color:var(--c6t);">ISO 2859-1</span>
-        <span class="tag" style="background:var(--c6l);color:var(--c6t);">AQL</span>
-        <span class="tag" style="background:var(--c6l);color:var(--c6t);">3 niveles defectos</span>
-      </div>
-    </div>
-    <span class="s-badge" style="background:var(--c6l);color:var(--c6t);">AQL</span>
-  </div>
-
-  <div class="semana">
-    <div class="s-week"><div class="s-week-num">22</div><div class="s-week-lbl">Semana</div></div>
-    <div class="s-body">
-      <div class="s-title">Reportes de producción y dashboard final</div>
-      <div class="s-desc">Pedidos completados por período · Eficiencia por empleado · Materiales más usados y mermas · Tiempos reales vs estimados · Exportar a PDF con reportlab · Dashboard KPIs en tiempo real</div>
-      <div class="s-tags">
-        <span class="tag" style="background:var(--c6l);color:var(--c6t);">Reportes</span>
-        <span class="tag" style="background:var(--c6l);color:var(--c6t);">PDF</span>
-        <span class="tag" style="background:var(--c6l);color:var(--c6t);">Dashboard KPI</span>
+        <span class="tag" style="background:var(--c6l);color:var(--c6t);">Reporte stock</span>
+        <span class="tag" style="background:var(--c6l);color:var(--c6t);">Reporte pedidos</span>
+        <span class="tag" style="background:var(--c6l);color:var(--c6t);">Filtros</span>
       </div>
     </div>
     <span class="s-badge" style="background:var(--c6l);color:var(--c6t);">Reportes</span>
   </div>
 
-  <div class="semana">
-    <div class="s-week"><div class="s-week-num">23</div><div class="s-week-lbl">Semana</div></div>
+  <div class="semana" style="--pc:var(--c6);">
+    <div class="s-week"><div class="s-week-num">22</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Backup automático + pruebas con datos reales</div>
-      <div class="s-desc">Backup semanal: mysqldump → rclone → Google Drive · Pruebas con pedidos reales de la empresa · Corrección de errores de UX · Ajustes según feedback del equipo · Sistema listo para uso diario</div>
+      <div class="s-title">Exportación a PDF, impresión y Excel</div>
+      <div class="s-desc">Botones Descargar PDF e Imprimir del reporte de pedidos, generados con <em>ReportLab</em> (un pedido por página, con su tabla de ítems y notas de parciales o suspendidos) · PDF individual por pedido para el visor del navegador · exportación del inventario a Excel · el encabezado del PDF repite el rango y los filtros aplicados.</div>
       <div class="s-tags">
-        <span class="tag" style="background:var(--c6l);color:var(--c6t);">Backup nube</span>
-        <span class="tag" style="background:var(--c6l);color:var(--c6t);">rclone</span>
-        <span class="tag" style="background:var(--c6l);color:var(--c6t);">QA real</span>
+        <span class="tag" style="background:var(--c6l);color:var(--c6t);">PDF ReportLab</span>
+        <span class="tag" style="background:var(--c6l);color:var(--c6t);">Imprimir</span>
+        <span class="tag" style="background:var(--c6l);color:var(--c6t);">Excel</span>
       </div>
     </div>
-    <span class="s-badge" style="background:var(--c6l);color:var(--c6t);">QA + Backup</span>
+    <span class="s-badge" style="background:var(--c6l);color:var(--c6t);">Exportación</span>
+  </div>
+
+  <div class="semana" style="--pc:var(--c6);">
+    <div class="s-week"><div class="s-week-num">23</div><div class="s-week-lbl">Semana</div></div>
+    <div class="s-body">
+      <div class="s-title">Diseño responsive y endurecimiento</div>
+      <div class="s-desc">Layout responsive con un único punto de quiebre en 768 px: escritorio con sidebar y tablas, móvil con barra de pestañas inferior y tablas convertidas en tarjetas apiladas · endurecimiento posterior: permisos por rol reforzados en el backend, sondeo centralizado y actualizaciones optimistas en el Kanban.</div>
+      <div class="s-tags">
+        <span class="tag" style="background:var(--c6l);color:var(--c6t);">Responsive 768px</span>
+        <span class="tag" style="background:var(--c6l);color:var(--c6t);">Tab bar móvil</span>
+        <span class="tag" style="background:var(--c5l);color:var(--c5t);">✓ Entrega F5</span>
+      </div>
+    </div>
+    <span class="s-badge" style="background:var(--c5);color:#fff;">✓ Entrega</span>
   </div>
 </div>
 
 <!-- ══════════ FASE 6 ══════════ -->
 <div class="fase-label">
   <div class="fase-dot" style="background:var(--c5);"></div>
-  <div class="fase-name">Fase 6 — Instalación y capacitación</div>
+  <div class="fase-name">Fase 6 — Instalación definitiva y capacitación</div>
   <span class="fase-range">Semanas 24–25 · Mes 6</span>
   <span class="fase-tag" style="background:var(--c5l);color:var(--c5t);">Entrega final</span>
+  <span class="fase-done">✓ Completada</span>
 </div>
 <div class="semanas">
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c5);">
     <div class="s-week"><div class="s-week-num">24</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Instalación definitiva en la empresa</div>
-      <div class="s-desc">Deploy final en Ubuntu Server · Configurar Gunicorn como servicio permanente (systemd) · IP fija 192.168.1.10 en toda la red · Raspberry Pi en modo kiosk apuntando a /pantalla · Escáneres USB en bodega y producción listos</div>
+      <div class="s-title">Despliegue definitivo en la planta</div>
+      <div class="s-desc">Gunicorn corriendo como servicio permanente de systemd (<em>sgp</em>) en el servidor Ubuntu · IP fija 192.168.0.10 accesible en toda la red interna · flujo de actualización por <em>rsync</em> + <em>ng build --base-href /app/</em> + <em>systemctl restart sgp</em> · <em>SECRET_KEY</em> por variable de entorno y Render como respaldo automático.</div>
       <div class="s-tags">
-        <span class="tag" style="background:var(--c5l);color:var(--c5t);">Deploy</span>
-        <span class="tag" style="background:var(--c5l);color:var(--c5t);">Raspberry Pi</span>
+        <span class="tag" style="background:var(--c5l);color:var(--c5t);">systemd</span>
         <span class="tag" style="background:var(--c5l);color:var(--c5t);">Red interna</span>
+        <span class="tag" style="background:var(--c5l);color:var(--c5t);">rsync deploy</span>
       </div>
     </div>
     <span class="s-badge" style="background:var(--c5l);color:var(--c5t);">Instalación</span>
   </div>
 
-  <div class="semana">
+  <div class="semana" style="--pc:var(--c5);">
     <div class="s-week"><div class="s-week-num">25</div><div class="s-week-lbl">Semana</div></div>
     <div class="s-body">
-      <div class="s-title">Capacitación + documentación + entrega oficial</div>
-      <div class="s-desc">Sesión de capacitación: admin (panel completo) y empleados (producción + escáner) · Documentación básica de uso · Importar datos históricos del Excel · Migrar de Excel al sistema definitivamente · Entrega oficial del proyecto</div>
+      <div class="s-title">Capacitación, migración y entrega oficial</div>
+      <div class="s-desc">Capacitación a los perfiles Admin y Jefe sobre el panel completo, el scanner y el flujo de producción · carga real del catálogo, clientes e inventario y migración de los datos históricos desde el Excel de la planta · paso definitivo de Excel al sistema · entrega oficial: SGP en uso diario en los computadores de ProPrint.</div>
       <div class="s-tags">
         <span class="tag" style="background:var(--c5l);color:var(--c5t);">Capacitación</span>
         <span class="tag" style="background:var(--c5l);color:var(--c5t);">Migración Excel</span>
@@ -607,19 +739,109 @@ body{
   </div>
 </div>
 
+<!-- GALERIA DE CAPTURAS -->
+<div class="mods-head">
+  <div class="fase-dot" style="background:var(--text);"></div>
+  <div class="fase-name">El sistema en funcionamiento</div>
+  <span class="fase-range" style="margin-left:auto;">Capturas reales · datos de la planta</span>
+</div>
+<div class="gallery">
+  <div class="shot">
+    <div class="shot-bar"><span class="shot-dots"><i></i><i></i><i></i></span><span class="shot-url">/app/pedidos · Monitor TV</span></div>
+    <img src="shots/monitor-tv.png" alt="Monitor de pedidos tipo TV"/>
+    <div class="shot-cap"><b>Pedidos-Monitor — pantalla TV 24/7</b><span>Conteos por estado, reloj, semáforo y countdown en vivo para el monitor de planta.</span></div>
+  </div>
+  <div class="shot">
+    <div class="shot-bar"><span class="shot-dots"><i></i><i></i><i></i></span><span class="shot-url">/app/produccion</span></div>
+    <img src="shots/produccion.png" alt="Tablero Kanban de producción"/>
+    <div class="shot-cap"><b>Producción — Tablero Kanban</b><span>Columnas En Cola / Procesando / Terminado, con progreso, semáforo y countdown por pedido.</span></div>
+  </div>
+  <div class="shot">
+    <div class="shot-bar"><span class="shot-dots"><i></i><i></i><i></i></span><span class="shot-url">/app/inventario</span></div>
+    <img src="shots/inventario.png" alt="Inventario de bodega"/>
+    <div class="shot-cap"><b>Inventario de Bodega</b><span>Stock por categoría con estados de color, umbrales y KPIs de bodega.</span></div>
+  </div>
+  <div class="shot">
+    <div class="shot-bar"><span class="shot-dots"><i></i><i></i><i></i></span><span class="shot-url">/app/pedidos/nuevo</span></div>
+    <img src="shots/pedidos.png" alt="Nuevo pedido con importación de documento"/>
+    <div class="shot-cap"><b>Pedidos — Nuevo pedido</b><span>Alta de pedidos con importación desde documento (PDF u OCR de imagen) e ítems por scanner.</span></div>
+  </div>
+  <div class="shot">
+    <div class="shot-bar"><span class="shot-dots"><i></i><i></i><i></i></span><span class="shot-url">/app/operaciones</span></div>
+    <img src="shots/operaciones.png" alt="Operaciones con scanner"/>
+    <div class="shot-cap"><b>Operaciones — Scanner</b><span>Entradas y salidas por código de barras, escaneo rápido e historial de movimientos.</span></div>
+  </div>
+  <div class="shot">
+    <div class="shot-bar"><span class="shot-dots"><i></i><i></i><i></i></span><span class="shot-url">/app/reportes</span></div>
+    <img src="shots/reportes.png" alt="Reportes"/>
+    <div class="shot-cap"><b>Reportes</b><span>Resumen de stock y pedidos por período, con exportación a Excel y PDF.</span></div>
+  </div>
+</div>
+
+<!-- MODULOS ENTREGADOS -->
+<div class="mods-head">
+  <div class="fase-dot" style="background:var(--text);"></div>
+  <div class="fase-name">Módulos en producción</div>
+  <span class="fase-range" style="margin-left:auto;">8 módulos activos</span>
+</div>
+<div class="mods">
+  <div class="mod">
+    <div class="mod-ico" style="background:var(--c1l);color:var(--c1t);">IN</div>
+    <div><div class="mod-name">Inventario</div><div class="mod-desc">Materiales por categoría, estados de stock y alertas.</div></div>
+  </div>
+  <div class="mod">
+    <div class="mod-ico" style="background:var(--c1l);color:var(--c1t);">OP</div>
+    <div><div class="mod-name">Operaciones (scanner)</div><div class="mod-desc">Entradas y salidas por código de barras USB.</div></div>
+  </div>
+  <div class="mod">
+    <div class="mod-ico" style="background:var(--c3l);color:var(--c3t);">PE</div>
+    <div><div class="mod-name">Pedidos</div><div class="mod-desc">Alta con lectura de documentos y ciclo de vida.</div></div>
+  </div>
+  <div class="mod">
+    <div class="mod-ico" style="background:var(--c4l);color:var(--c4t);">PR</div>
+    <div><div class="mod-name">Producción (Kanban)</div><div class="mod-desc">Tablero en tiempo real con semáforo y countdown.</div></div>
+  </div>
+  <div class="mod">
+    <div class="mod-ico" style="background:var(--c4l);color:var(--c4t);">TV</div>
+    <div><div class="mod-name">Pedidos-Monitor</div><div class="mod-desc">Pantalla tipo TV para la planta, 24/7.</div></div>
+  </div>
+  <div class="mod">
+    <div class="mod-ico" style="background:var(--c6l);color:var(--c6t);">RE</div>
+    <div><div class="mod-name">Reportes</div><div class="mod-desc">Stock y pedidos con export a PDF y Excel.</div></div>
+  </div>
+  <div class="mod">
+    <div class="mod-ico" style="background:var(--c3l);color:var(--c3t);">BD</div>
+    <div><div class="mod-name">Configuración</div><div class="mod-desc">Catálogo de productos y directorio de clientes.</div></div>
+  </div>
+  <div class="mod">
+    <div class="mod-ico" style="background:var(--c2l);color:var(--c2t);">US</div>
+    <div><div class="mod-name">Usuarios y roles</div><div class="mod-desc">Autenticación y permisos Admin / Jefe.</div></div>
+  </div>
+</div>
+
 <!-- ENTREGA BANNER -->
 <div class="entrega-banner">
   <div class="eb-left">
-    <div class="eb-title">Sistema de Gestión de Producción — Entrega oficial</div>
-    <div class="eb-sub">Semana 25 · Mes 6 · Imprenta completamente digitalizada</div>
+    <div class="eb-title">Sistema de Gestión de Producción — Entrega completada</div>
+    <div class="eb-sub">6 fases · 25 semanas · Imprenta digitalizada y en uso diario</div>
   </div>
-  <div class="eb-badge">Proyecto completado</div>
+  <div class="eb-badge">✓ Proyecto entregado</div>
+</div>
+
+<!-- PDF CTA -->
+<div class="pdf-cta">
+  <a class="pdf-btn" href="cronograma-sgp.pdf" download>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    Descargar cronograma en PDF
+  </a>
+  <div class="pdf-note">Archivo: cronograma-sgp.pdf</div>
 </div>
 
 </div><!-- /main -->
 
 <div class="footer">
-  Desarrollado para <span>Imprenta ProPrint</span> · Stack: Python · Flask · MySQL · Ubuntu Server · Nginx · ISO 2859-1
+  Desarrollado para <span>Imprenta ProPrint</span> · Cuenca, Ecuador · Equipo: <span>Aleks · Esteban · Christian</span><br>
+  Stack: Python · Flask · SQLAlchemy · SQLite · Angular 21 · Tailwind CSS · Gunicorn · Ubuntu Server · OCR Tesseract · ReportLab
 </div>
 
 </body>
